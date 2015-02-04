@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="module1">
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_nios2_qsys_0:nios2_qsys_0|nios_system_nios2_qsys_0_nios2_oci:the_nios_system_nios2_qsys_0_nios2_oci|nios_system_nios2_qsys_0_nios2_ocimem:the_nios_system_nios2_qsys_0_nios2_ocimem|nios_system_nios2_qsys_0_ociram_sp_ram_module:nios_system_nios2_qsys_0_ociram_sp_ram|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_hn81.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|Altera_UP_SD_Card_Avalon_Interface:sd_card|Altera_UP_SD_Card_Interface:SD_Card_Port|Altera_UP_SD_Card_Buffer:data_line|Altera_UP_SD_Card_Memory_Block:packet_memory|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_7n92.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_audio_0:audio_0|altera_up_audio_in_deserializer:Audio_In_Deserializer|altera_up_sync_fifo:Audio_In_Right_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_onchip_memory2_0:onchip_memory2_0|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_bcd1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_video_fifo:video_fifo|dcfifo:Data_FIFO" CBX_FILE_NAME="dcfifo_5oj1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_audio_0:audio_0|altera_up_audio_in_deserializer:Audio_In_Deserializer|altera_up_sync_fifo:Audio_In_Left_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_audio_0:audio_0|altera_up_audio_out_serializer:Audio_Out_Serializer|altera_up_sync_fifo:Audio_Out_Right_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_character_buffer:character_buffer|altsyncram:Char_Buffer_Memory" CBX_FILE_NAME="altsyncram_4272.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_jtag_uart_0:jtag_uart_0|nios_system_jtag_uart_0_scfifo_w:the_nios_system_jtag_uart_0_scfifo_w|scfifo:wfifo" CBX_FILE_NAME="scfifo_1n21.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_nios2_qsys_0:nios2_qsys_0|nios_system_nios2_qsys_0_register_bank_a_module:nios_system_nios2_qsys_0_register_bank_a|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_dah1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_audio_0:audio_0|altera_up_audio_out_serializer:Audio_Out_Serializer|altera_up_sync_fifo:Audio_Out_Left_Channel_FIFO|scfifo:Sync_FIFO" CBX_FILE_NAME="scfifo_7041.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_jtag_uart_0:jtag_uart_0|nios_system_jtag_uart_0_scfifo_r:the_nios_system_jtag_uart_0_scfifo_r|scfifo:rfifo" CBX_FILE_NAME="scfifo_1n21.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_pixel_buffer_dma:pixel_buffer_dma|scfifo:Image_Buffer" CBX_FILE_NAME="scfifo_70a1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_ps2_0:ps2_0|scfifo:Incoming_Data_FIFO" CBX_FILE_NAME="scfifo_tr31.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_scaler:scaler|altera_up_video_scaler_multiply_height:Multiply_Height|scfifo:Multiply_Height_FIFO" CBX_FILE_NAME="scfifo_qd31.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_character_buffer:character_buffer|altera_up_video_128_character_rom:Character_Rom|altsyncram:character_data_rom" CBX_FILE_NAME="altsyncram_e5i1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|module1|nios_system:NiosII|nios_system_nios2_qsys_0:nios2_qsys_0|nios_system_nios2_qsys_0_register_bank_b_module:nios_system_nios2_qsys_0_register_bank_b|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_eah1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>
