@@ -257,19 +257,11 @@
          type = "int";
       }
    }
-   element timer_timestamp.s1
+   element LEDs.s1
    {
       datum baseAddress
       {
-         value = "18624";
-         type = "String";
-      }
-   }
-   element keys.s1
-   {
-      datum baseAddress
-      {
-         value = "18752";
+         value = "18736";
          type = "String";
       }
    }
@@ -281,11 +273,27 @@
          type = "String";
       }
    }
-   element sdram.s1
+   element timer_timestamp.s1
    {
       datum baseAddress
       {
-         value = "16777216";
+         value = "18624";
+         type = "String";
+      }
+   }
+   element timer_hardware_0.s1
+   {
+      datum baseAddress
+      {
+         value = "18592";
+         type = "String";
+      }
+   }
+   element keys.s1
+   {
+      datum baseAddress
+      {
+         value = "18752";
          type = "String";
       }
    }
@@ -297,19 +305,11 @@
          type = "boolean";
       }
    }
-   element LEDs.s1
+   element sdram.s1
    {
       datum baseAddress
       {
-         value = "18736";
-         type = "String";
-      }
-   }
-   element timer_hardware_0.s1
-   {
-      datum baseAddress
-      {
-         value = "18592";
+         value = "16777216";
          type = "String";
       }
    }
@@ -424,7 +424,7 @@
  <parameter name="projectName" value="module1.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1423081125191" />
+ <parameter name="timeStamp" value="1423344215833" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />

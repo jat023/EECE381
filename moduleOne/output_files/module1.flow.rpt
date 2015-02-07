@@ -1,6 +1,6 @@
 Flow report for module1
-Wed Feb 04 12:30:14 2015
-Quartus II 32-bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+Sat Feb 07 13:34:32 2015
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
 ---------------------
@@ -40,17 +40,17 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Wed Feb 04 12:30:14 2015      ;
-; Quartus II 32-bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
+; Flow Status                        ; Successful - Sat Feb 07 13:34:32 2015      ;
+; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
 ; Revision Name                      ; module1                                    ;
 ; Top-level Entity Name              ; module1                                    ;
 ; Family                             ; Cyclone II                                 ;
 ; Device                             ; EP2C35F672C6                               ;
 ; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 8,113 / 33,216 ( 24 % )                    ;
-;     Total combinational functions  ; 7,342 / 33,216 ( 22 % )                    ;
-;     Dedicated logic registers      ; 5,064 / 33,216 ( 15 % )                    ;
-; Total registers                    ; 5132                                       ;
+; Total logic elements               ; 8,200 / 33,216 ( 25 % )                    ;
+;     Total combinational functions  ; 7,421 / 33,216 ( 22 % )                    ;
+;     Dedicated logic registers      ; 5,113 / 33,216 ( 15 % )                    ;
+; Total registers                    ; 5181                                       ;
 ; Total pins                         ; 152 / 475 ( 32 % )                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 146,560 / 483,840 ( 30 % )                 ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 02/04/2015 12:27:55 ;
+; Start date & time ; 02/07/2015 13:31:36 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; module1             ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+---------------------------------------------------------------------+---------------+------------------------------------------+----------------+
 ; Assignment Name                     ; Value                                                               ; Default Value ; Entity Name                              ; Section Id     ;
 +-------------------------------------+---------------------------------------------------------------------+---------------+------------------------------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 18544359141596.142308167402792                                      ; --            ; --                                       ; --             ;
+; COMPILER_SIGNATURE_ID               ; 18544359141596.142334469404972                                      ; --            ; --                                       ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                                                ; --            ; --                                       ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                                              ; <None>        ; --                                       ; --             ;
 ; IP_TOOL_ENV                         ; Qsys                                                                ; --            ; altera_avalon_sc_fifo                    ; --             ;
@@ -212,7 +212,7 @@ applicable agreement for further details.
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                 ; --            ; --                                       ; --             ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                               ; --            ; --                                       ; --             ;
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                                                        ; --            ; --                                       ; --             ;
-; SLD_INFO                            ; QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1423081646       ; --            ; nios_system                              ; --             ;
+; SLD_INFO                            ; QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1423344481       ; --            ; nios_system                              ; --             ;
 ; SOPCINFO_FILE                       ; nios_system/synthesis/../../nios_system.sopcinfo                    ; --            ; --                                       ; --             ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                                  ; --            ; --                                       ; --             ;
 +-------------------------------------+---------------------------------------------------------------------+---------------+------------------------------------------+----------------+
@@ -223,12 +223,12 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:01:02     ; 1.0                     ; 555 MB              ; 00:01:00                           ;
-; Fitter                    ; 00:00:48     ; 1.0                     ; 580 MB              ; 00:00:47                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 377 MB              ; 00:00:04                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 409 MB              ; 00:00:04                           ;
-; EDA Netlist Writer        ; 00:00:08     ; 1.0                     ; 399 MB              ; 00:00:07                           ;
-; Total                     ; 00:02:06     ; --                      ; --                  ; 00:02:02                           ;
+; Analysis & Synthesis      ; 00:01:25     ; 1.0                     ; 769 MB              ; 00:01:07                           ;
+; Fitter                    ; 00:00:57     ; 1.0                     ; 780 MB              ; 00:00:49                           ;
+; Assembler                 ; 00:00:05     ; 1.0                     ; 463 MB              ; 00:00:04                           ;
+; TimeQuest Timing Analyzer ; 00:00:05     ; 1.0                     ; 515 MB              ; 00:00:04                           ;
+; EDA Netlist Writer        ; 00:00:09     ; 1.0                     ; 497 MB              ; 00:00:07                           ;
+; Total                     ; 00:02:41     ; --                      ; --                  ; 00:02:11                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

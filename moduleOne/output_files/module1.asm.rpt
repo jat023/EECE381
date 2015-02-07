@@ -1,6 +1,6 @@
 Assembler report for module1
-Wed Feb 04 12:30:00 2015
-Quartus II 32-bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+Sat Feb 07 13:34:16 2015
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
 ---------------------
@@ -11,8 +11,8 @@ Quartus II 32-bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
   3. Assembler Settings
   4. Assembler Encrypted IP Cores Summary
   5. Assembler Generated Files
-  6. Assembler Device Options: C:/Users/James/Desktop/moduleOne/output_files/module1.sof
-  7. Assembler Device Options: C:/Users/James/Desktop/moduleOne/output_files/module1.pof
+  6. Assembler Device Options: C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.sof
+  7. Assembler Device Options: C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.pof
   8. Assembler Messages
 
 
@@ -39,7 +39,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Feb 04 12:30:00 2015 ;
+; Assembler Status      ; Successful - Sat Feb 07 13:34:16 2015 ;
 ; Revision Name         ; module1                               ;
 ; Top-level Entity Name ; module1                               ;
 ; Family                ; Cyclone II                            ;
@@ -89,53 +89,53 @@ applicable agreement for further details.
 +--------+------------------------+--------------+
 
 
-+-----------------------------------------------------------+
-; Assembler Generated Files                                 ;
-+-----------------------------------------------------------+
-; File Name                                                 ;
-+-----------------------------------------------------------+
-; C:/Users/James/Desktop/moduleOne/output_files/module1.sof ;
-; C:/Users/James/Desktop/moduleOne/output_files/module1.pof ;
-+-----------------------------------------------------------+
++----------------------------------------------------------------------------+
+; Assembler Generated Files                                                  ;
++----------------------------------------------------------------------------+
+; File Name                                                                  ;
++----------------------------------------------------------------------------+
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.sof ;
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.pof ;
++----------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/James/Desktop/moduleOne/output_files/module1.sof ;
-+----------------+--------------------------------------------------------------------+
-; Option         ; Setting                                                            ;
-+----------------+--------------------------------------------------------------------+
-; Device         ; EP2C35F672C6                                                       ;
-; JTAG usercode  ; 0x008EBBAD                                                         ;
-; Checksum       ; 0x008EBBAD                                                         ;
-+----------------+--------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.sof ;
++----------------+-------------------------------------------------------------------------------------+
+; Option         ; Setting                                                                             ;
++----------------+-------------------------------------------------------------------------------------+
+; Device         ; EP2C35F672C6                                                                        ;
+; JTAG usercode  ; 0x009099C9                                                                          ;
+; Checksum       ; 0x009099C9                                                                          ;
++----------------+-------------------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/James/Desktop/moduleOne/output_files/module1.pof ;
-+--------------------+----------------------------------------------------------------+
-; Option             ; Setting                                                        ;
-+--------------------+----------------------------------------------------------------+
-; Device             ; EPCS16                                                         ;
-; JTAG usercode      ; 0x00000000                                                     ;
-; Checksum           ; 0x1BD742ED                                                     ;
-; Compression Ratio  ; 2                                                              ;
-+--------------------+----------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/James/Documents/GitHub/EECE381/moduleOne/output_files/module1.pof ;
++--------------------+---------------------------------------------------------------------------------+
+; Option             ; Setting                                                                         ;
++--------------------+---------------------------------------------------------------------------------+
+; Device             ; EPCS16                                                                          ;
+; JTAG usercode      ; 0x00000000                                                                      ;
+; Checksum           ; 0x1BDC3D72                                                                      ;
+; Compression Ratio  ; 2                                                                               ;
++--------------------+---------------------------------------------------------------------------------+
 
 
 +--------------------+
 ; Assembler Messages ;
 +--------------------+
 Info: *******************************************************************
-Info: Running Quartus II 32-bit Assembler
+Info: Running Quartus II 64-Bit Assembler
     Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Wed Feb 04 12:29:56 2015
+    Info: Processing started: Sat Feb 07 13:34:11 2015
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off module1 -c module1
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
-Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 378 megabytes
-    Info: Processing ended: Wed Feb 04 12:30:00 2015
-    Info: Elapsed time: 00:00:04
+Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 463 megabytes
+    Info: Processing ended: Sat Feb 07 13:34:16 2015
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:04
 
 

@@ -1,6 +1,6 @@
 EDA Netlist Writer report for module1
-Wed Feb 04 12:30:14 2015
-Quartus II 32-bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+Sat Feb 07 13:34:32 2015
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
 ---------------------
@@ -36,7 +36,7 @@ applicable agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Wed Feb 04 12:30:14 2015 ;
+; EDA Netlist Writer Status ; Successful - Sat Feb 07 13:34:32 2015 ;
 ; Revision Name             ; module1                               ;
 ; Top-level Entity Name     ; module1                               ;
 ; Family                    ; Cyclone II                            ;
@@ -66,31 +66,31 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------------------+------------------------+
 
 
-+---------------------------------------------------------------------------+
-; Simulation Generated Files                                                ;
-+---------------------------------------------------------------------------+
-; Generated Files                                                           ;
-+---------------------------------------------------------------------------+
-; C:/Users/James/Desktop/moduleOne/simulation/modelsim/module1.vho          ;
-; C:/Users/James/Desktop/moduleOne/simulation/modelsim/module1_fast.vho     ;
-; C:/Users/James/Desktop/moduleOne/simulation/modelsim/module1_vhd.sdo      ;
-; C:/Users/James/Desktop/moduleOne/simulation/modelsim/module1_vhd_fast.sdo ;
-+---------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------+
+; Simulation Generated Files                                                                 ;
++--------------------------------------------------------------------------------------------+
+; Generated Files                                                                            ;
++--------------------------------------------------------------------------------------------+
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/simulation/modelsim/module1.vho          ;
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/simulation/modelsim/module1_fast.vho     ;
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/simulation/modelsim/module1_vhd.sdo      ;
+; C:/Users/James/Documents/GitHub/EECE381/moduleOne/simulation/modelsim/module1_vhd_fast.sdo ;
++--------------------------------------------------------------------------------------------+
 
 
 +-----------------------------+
 ; EDA Netlist Writer Messages ;
 +-----------------------------+
 Info: *******************************************************************
-Info: Running Quartus II 32-bit EDA Netlist Writer
+Info: Running Quartus II 64-Bit EDA Netlist Writer
     Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Wed Feb 04 12:30:06 2015
+    Info: Processing started: Sat Feb 07 13:34:23 2015
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off module1 -c module1
-Info (204026): Generated files "module1.vho", "module1_fast.vho", "module1_vhd.sdo" and "module1_vhd_fast.sdo" in directory "C:/Users/James/Desktop/moduleOne/simulation/modelsim/" for EDA simulation tool
-Info: Quartus II 32-bit EDA Netlist Writer was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 399 megabytes
-    Info: Processing ended: Wed Feb 04 12:30:14 2015
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:08
+Info (204026): Generated files "module1.vho", "module1_fast.vho", "module1_vhd.sdo" and "module1_vhd_fast.sdo" in directory "C:/Users/James/Documents/GitHub/EECE381/moduleOne/simulation/modelsim/" for EDA simulation tool
+Info: Quartus II 64-Bit EDA Netlist Writer was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 497 megabytes
+    Info: Processing ended: Sat Feb 07 13:34:32 2015
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:07
 
 
