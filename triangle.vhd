@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity pixel_drawer is
-generic(
-    pixel_buffer_base : std_logic_vector := x"00080000"
-	 );
+--generic(
+ --   pixel_buffer_base : std_logic_vector := x"00080000"
+--	 );
 port (
     clk: in std_logic;
     reset_n: in std_logic;
@@ -24,6 +24,7 @@ port (
 end pixel_drawer;
 
 architecture rtl of pixel_drawer is
+	 signal pixelBuff : std_logic_vector(31 downto 0) := x"00080000";
     signal x1 : std_logic_vector(8 downto 0);
     signal y1,y2 : std_logic_vector(7 downto 0);
     signal colour : std_logic_vector(15 downto 0);	 
@@ -47,7 +48,7 @@ begin
     -- starts a drawing operation, we immediately copy the coordinates here, so that
     -- if the user tries to change the coordinates while the draw operation is running,
     -- the draw operation completes with the old value of the coordinates.  This is
-    -- not strictly required, but perhaps provides a more “natural” operation for
+    -- not strictly required, but perhaps provides a more â€œnaturalâ€ operation for
     -- whoever is writing the C code.
 
     variable x1_local,x2_local : std_logic_vector(8 downto 0);
@@ -78,14 +79,14 @@ begin
 
                -- Initiate a write operation on the master bus.  The address of
                -- of the write operation points to the pixel buffer plus an offset
-               -- that is computed from the x1_local and y1_local.  The final ‘0’
+               -- that is computed from the x1_local and y1_local.  The final â€˜0â€™
                -- is because each pixel takes 16 bits in memory.  The data of the
                -- write operation is the colour value (16 bits).
 
                if state = 0 then	
---                  master_addr <= std_logic_vector(unsigned(pixel_buffer_base) + steve +
+--                  master_addr <= std_logic_vector(unsigned(pixelBuff) + steve +
 --						                   unsigned( y1_local & x1_local & '0'));		  				   	          
-                  master_addr <= std_logic_vector(unsigned(pixel_buffer_base) +
+                  master_addr <= std_logic_vector(unsigned(pixelBuff) +
  						                   unsigned( y1_local & x1_local & '0'));	
                   master_writedata <= colour_local;
                   master_be <= "11";  -- byte enable
@@ -161,7 +162,7 @@ begin
 								-- draw down arrow
 								--count_y := "000111";
 							    if (count_x < "001111") then
-									y1_local := savedy;	
+									y1_local := std_logic_vector(unsigned(savedy)+14);	
 									x1_local := x2_local;
 									if (x1_local < std_logic_vector(unsigned(savedx)+count_x)) then 
 										x2_local := std_logic_vector(unsigned(x1_local)+1);
@@ -231,6 +232,7 @@ begin
                     when "001" => y1 <= slave_writedata(7 downto 0);
                     when "010" => y2 <= slave_writedata(7 downto 0);
                     when "011" => colour <= slave_writedata(15 downto 0);
+						  when "101" => pixelBuff <= slave_writedata(31 downto 0);
 
                     -- If the user tries to write to offset 5, we are to start drawing
                     when "100" =>
@@ -263,7 +265,7 @@ begin
    end process;	  
 		  
 	
-   -- This process is used to describe what to do when a “read” operation occurs on the
+   -- This process is used to describe what to do when a â€œreadâ€ operation occurs on the
    -- slave interface (this is because the C program does a memory read).  Depending
    -- on the address read, we return x1, y1, y2, the colour, or the done flag.
 
@@ -277,6 +279,7 @@ begin
               when "010" => slave_readdata <= "000000000000000000000000" & y2;
               when "011" => slave_readdata <= "0000000000000000" & colour;
               when "100" => slave_readdata <= (0=>done, others=>'0');
+				  when "101" => slave_readdata <= pixelBuff;
               when others => null;
             end case;
          end if;
