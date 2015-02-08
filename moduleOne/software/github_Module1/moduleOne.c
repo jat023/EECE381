@@ -197,7 +197,6 @@ void setUpVideo() {
 
 	alt_up_pixel_buffer_dma_change_back_buffer_address(pixel_buffer, pixel_buffer_addr1);
 	// Clear first buffer (this makes all pixels black)
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
 	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
 
 	//Swap the first buffer to front
@@ -206,7 +205,6 @@ void setUpVideo() {
 
 	alt_up_pixel_buffer_dma_change_back_buffer_address(pixel_buffer, pixel_buffer_addr2);
 	// Clear second buffer (this makes all pixels black)
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
 	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
 
 	//Swap the second buffer to front
