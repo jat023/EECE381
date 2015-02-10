@@ -249,20 +249,44 @@
          type = "int";
       }
    }
-   element onchip_memory2_0.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
    element timer_hardware_0.s1
    {
       datum baseAddress
       {
          value = "18592";
          type = "String";
+      }
+   }
+   element keys.s1
+   {
+      datum baseAddress
+      {
+         value = "18752";
+         type = "String";
+      }
+   }
+   element LEDs.s1
+   {
+      datum baseAddress
+      {
+         value = "18736";
+         type = "String";
+      }
+   }
+   element timer_timestamp.s1
+   {
+      datum baseAddress
+      {
+         value = "18624";
+         type = "String";
+      }
+   }
+   element onchip_memory2_0.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element sdram.s1
@@ -278,30 +302,6 @@
       datum baseAddress
       {
          value = "18656";
-         type = "String";
-      }
-   }
-   element keys.s1
-   {
-      datum baseAddress
-      {
-         value = "18752";
-         type = "String";
-      }
-   }
-   element timer_timestamp.s1
-   {
-      datum baseAddress
-      {
-         value = "18624";
-         type = "String";
-      }
-   }
-   element LEDs.s1
-   {
-      datum baseAddress
-      {
-         value = "18736";
          type = "String";
       }
    }
@@ -408,7 +408,7 @@
  <parameter name="projectName" value="module_1.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1422979992963" />
+ <parameter name="timeStamp" value="1423348370743" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -907,7 +907,7 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
  </module>
  <module kind="triangle" version="1.0" enabled="1" name="triangle_0">
-  <parameter name="pixel_buffer_base" value="524288" />
+  <parameter name="AUTO_CLOCK_CLOCK_RATE" value="50000000" />
  </module>
  <connection
    kind="avalon"
