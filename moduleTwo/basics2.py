@@ -27,30 +27,26 @@ for x in range (0, img.width):
 		red, green, blue = img[x,y]
 '''
 
+
+
 G = nx.Graph()
 
-for x in range (0, img.width):
-	for y in range(0, img.height):
-
-		if (y == 0):
-			if (x == 0 and y == 0):
-				G.add_node((x,y))
-			else:
-				G.add_node((x,y))
-				G.add_edge((x,y),(x - 1,y) 		#add edge to node left of current one	
-		else:
-			G.add_node((x,y))
-			G.add_edge((x,y), (x - 1,y) 			#add edge to node left of current
-			G.add_edge((x,y), (x, y - 1)			#add edge to node above of current
-			G.add_edge((x,y), (x - 1, y - 1)		#add edge to node above left of current
-
-			if (x != img.width):
-				G.add_edge((x,y), (x + 1, y - 1)	#add edge to node above right of current
-
-
+for y in range(0, img.height):
+	for x in range(0, img.width):
+		G.add_node((x,y))
 
 print(G.number_of_nodes())
+
+for y in range(1, (img.height - 1)):
+	for x in range(1, (img.width - 1)):
+		G.add_edge((x,y),(x-1,y))	#left
+		G.add_edge((x,y),(x-1,y-1))	#above left
+		G.add_edge((x,y),(x, y-1))	#above
+		#G.add_edge((x,y),(x+1,y-1))	#above right
+
 print(G.number_of_edges())
+
+
 
 '''
 ------------create graph of the parsed image------------
