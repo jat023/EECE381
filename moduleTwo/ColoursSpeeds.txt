@@ -14,3 +14,27 @@ Black   (0,0,0)     -Impassable: fences, cliffs, buildings (can add paths 100% s
 Blue (33,209,255) - Impassable (can add passable streams later)
 Olive Green (158,186,29 - Out of Bounds
 
+
+checking green:
+
+
+red > 100 but < 150
+blue < 100 
+if green and red and blue > 120 then we are getting close to white (very pale color)
+if green > red and green > blue then we have green dominant
+	if green > 50 but < 125 then we have a dark green
+	if green > 125 then we have a mid green
+	if green > 200 then we have a light green (bright)
+
+if green value gets too low ( < 50) we essentially have black
+
+
+
+
+checking white:
+if green and red and blue all > 225 then we have white
+
+checking yellow:
+if red > blue and green > blue and (yellow and red > 200) then we have a yellow
+
+
