@@ -85,6 +85,8 @@ for x in range (1, img.width - 1):
 			G.add_edge((x,y),(x+1,y+1), weight = yellowSpeed)
 
 print "Number of edges: ", G.number_of_edges()
+
+
 print("")
 print("Done creating graph")
 print("")
