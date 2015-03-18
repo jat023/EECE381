@@ -45,7 +45,8 @@ for x in range (0, img.width):
 	for y in range(0, img.height):
 		G.add_node((x,y))
 
-print('Number of nodes: ', G.number_of_nodes())
+print "Number of nodes: ", G.number_of_nodes()
+
 
 for x in range (1, img.width - 1):
 	for y in range(1, img.height - 1):
@@ -54,13 +55,14 @@ for x in range (1, img.width - 1):
 		G.add_edge((x,y),(x,y-1))
 		G.add_edge((x,y),(x+1,y+1))
 
-print('Number of edges: ', G.number_of_edges())
+print "Number of edges: ", G.number_of_edges()
 print("")
 print("Done creating graph")
 print("")
 print("Processing image...")
 print("")
 
+'''
 #iterate over each pixel in image
 for x in range (1, img.width - 1):
 	for y in range(1, img.height - 1):
@@ -93,25 +95,9 @@ for x in range (1, img.width - 1):
 			G[(x,y)][(x-1,y)]['weight'] = yellowSpeed
 			G[(x,y)][(x,y-1)]['weight'] = yellowSpeed
 			G[(x,y)][(x+1,y-1)]['weight'] = yellowSpeed
-			
+'''	
 
-'''
-		# subtract the pixel colour from the reference
-		d_red = ref_red - red
-		d_green = ref_green - green
-		d_blue = ref_blue - blue
 
-		# length of the difference vector
-		length = math.sqrt( (d_red * d_red) + (d_green * d_green) + (d_blue * d_blue) )
-
-		if length > threshold:
-			print(length)
-			print(threshold)
-			img[x, y] = 0, 0, 0
-		else:
-			img[x, y] = 255, 255, 255
-'''
-print("")
 print("Finished processing. Ready to transfer")
 print("")
 
@@ -120,7 +106,7 @@ print("")
 viewer.displayImage(img)
 
 #delay before closing window (ms)
-sleep(5)
+sleep(3)
 #waitTime(5000)
 
 #end of script
