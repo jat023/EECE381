@@ -3,18 +3,12 @@
 import RPi.GPIO as GPIO 
 # Set the mode to use physical numbering the pins. 
 
-GPIO.setmode(GPIO.BCM) 
+GPIO.setmode(GPIO.BOARD) 
 # pin 3 is the PWM clock attempt. 
 GPIO.setup(3, GPIO.OUT)
 
 p = GPIO.PWM(3, 50)    # create an object p for PWM on port 25 at 50 Hertz  
-p.start(50)             # start the PWM on 50 percent duty cycle 
- 
-import RPi.GPIO as GPIO 
-GPIO.setmode(GPIO.BCM) 
-GPIO.setup(3, GPIO.OUT)
-p = GPIO.PWM(3, 50)    
-p.start(50)             
+p.start(50)             # start the PWM on 50 percent duty cycle              
 
                          
 # pin 7 is the fake clock. 

@@ -49,10 +49,10 @@ print('Number of nodes: ', G.number_of_nodes())
 
 for x in range (1, img.width - 1):
 	for y in range(1, img.height - 1):
-		G.add_edge()
-		G.add_edge()
-		G.add_edge()
-		G.add_edge()
+		G.add_edge((x,y),(x-1,y-1))
+		G.add_edge((x,y),(x-1,y))
+		G.add_edge((x,y),(x,y-1))
+		G.add_edge((x,y),(x+1,y+1))
 
 print('Number of edges: ', G.number_of_edges())
 print("")
