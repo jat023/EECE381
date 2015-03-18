@@ -8,7 +8,15 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(3, GPIO.OUT)
 
 p = GPIO.PWM(3, 50)    # create an object p for PWM on port 25 at 50 Hertz  
-                          
+p.start(50)             # start the PWM on 50 percent duty cycle 
+ 
+import RPi.GPIO as GPIO 
+GPIO.setmode(GPIO.BCM) 
+GPIO.setup(3, GPIO.OUT)
+p = GPIO.PWM(3, 50)    
+p.start(50)             
+
+                         
 # pin 7 is the fake clock. 
 GPIO.setup(7,GPIO.OUT)
 
@@ -53,9 +61,9 @@ try:
     
         # count up to 3000000 - takes ~7s
         counter += 1
-        GPIO.output(3,True)
+        GPIO.output(7,True)
         time.sleep(10)
-        GPIO.output(3,False)
+        GPIO.output(7,False)
         time.sleep(10)    
         print "Target reached: %d" % counter
         

@@ -1,9 +1,9 @@
 Always passable:
-Dark Green (61,255,23) - 0-20% speed
-Mid Green (139,255,116) - 20-60% speed
-Light Green (197,255,185) - 60-80% speed
-White (255,255,255) - 80-100% speed
-Yellow (255,186,53) - 90- 100% speed
+Dark Green (61,255,23) - 0-20% speed		15
+Mid Green (139,255,116) - 20-60% speed		40
+Light Green (197,255,185) - 60-80% speed	70
+White (255,255,255) - 80-100% speed		90
+Yellow (255,186,53) - 90- 100% speed		95
 
 Ignore (for the moment):
 Brown (209, 92, 0) - Contours, ignore for the moment
@@ -12,7 +12,7 @@ Purple  (255,0,255) -control circles/line, (out of bounds area = add later)
 Impassable:
 Black   (0,0,0)     -Impassable: fences, cliffs, buildings (can add paths 100% speed later)
 Blue (33,209,255) - Impassable (can add passable streams later)
-Olive Green (158,186,29 - Out of Bounds
+Olive Green (158,186,29) - Out of Bounds
 
 
 checking green:
