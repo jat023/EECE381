@@ -50,10 +50,39 @@ print "Number of nodes: ", G.number_of_nodes()
 
 for x in range (1, img.width - 1):
 	for y in range(1, img.height - 1):
-		G.add_edge((x,y),(x-1,y-1))
-		G.add_edge((x,y),(x-1,y))
-		G.add_edge((x,y),(x,y-1))
-		G.add_edge((x,y),(x+1,y+1))
+		#get RGB color value of the current node
+		red, green, blue = img[x,y]
+		
+		# sets weight to whiteSpeed for edge
+		if (red > 225 and green > 225 and blue > 225):
+			G.add_edge( (x,y) , (x-1,y-1) , weight = whiteSpeed)
+			G.add_edge((x,y),(x-1,y), weight = whiteSpeed)
+			G.add_edge((x,y),(x,y-1), weight = whiteSpeed)
+			G.add_edge((x,y),(x+1,y+1), weight = whiteSpeed)
+		# sets weight to dgSpeed (dark green) for edge
+		elif (red < 100 and green < 125 and blue < 100):
+			G.add_edge((x,y),(x-1,y-1), weight = dgSpeed)
+			G.add_edge((x,y),(x-1,y), weight = dgSpeed)
+			G.add_edge((x,y),(x,y-1), weight = dgSpeed)
+			G.add_edge((x,y),(x+1,y+1), weight = dgSpeed)
+		# sets weight to mgSpeed (medium green) for edge
+		elif (red < 100 and (green > 124 and green < 200) and blue < 100):
+			G.add_edge((x,y),(x-1,y-1), weight = mgSpeed)
+			G.add_edge((x,y),(x-1,y), weight = mgSpeed)
+			G.add_edge((x,y),(x,y-1), weight = mgSpeed)
+			G.add_edge((x,y),(x+1,y+1), weight = mgSpeed)	
+		# sets weight to lgSpeed (light green) for edge
+		elif (red < 100 and green > 199 and blue < 100):
+			G.add_edge((x,y),(x-1,y-1), weight = lgSpeed)
+			G.add_edge((x,y),(x-1,y), weight = lgSpeed)
+			G.add_edge((x,y),(x,y-1), weight = lgSpeed)
+			G.add_edge((x,y),(x+1,y+1), weight = lgSpeed)
+		# sets weight to yellowSpeed for edge
+		elif (red > 215 and green > 215 and blue < 10):
+			G.add_edge((x,y),(x-1,y-1), weight = yellowSpeed)
+			G.add_edge((x,y),(x-1,y), weight = yellowSpeed)
+			G.add_edge((x,y),(x,y-1), weight = yellowSpeed)
+			G.add_edge((x,y),(x+1,y+1), weight = yellowSpeed)
 
 print "Number of edges: ", G.number_of_edges()
 print("")
@@ -61,43 +90,6 @@ print("Done creating graph")
 print("")
 print("Processing image...")
 print("")
-
-'''
-#iterate over each pixel in image
-for x in range (1, img.width - 1):
-	for y in range(1, img.height - 1):
-		#Get value at xth column and yth row, place intensities into variables		
-		red, green, blue = img[x,y]
-		
-		#if red, green, and blue all > 225, then we have white
-		if (red > 225 and green > 225 and blue > 225):
-			G[(x,y)][(x-1,y-1)]['weight'] = whiteSpeed
-			G[(x,y)][(x-1,y)]['weight'] = whiteSpeed
-			G[(x,y)][(x,y-1)]['weight'] = whiteSpeed
-			G[(x,y)][(x+1,y-1)]['weight'] = whiteSpeed
-		elif (red < 100 and green < 125 and blue < 100):
-			G[(x,y)][(x-1,y-1)]['weight'] = dgSpeed
-			G[(x,y)][(x-1,y)]['weight'] = dgSpeed
-			G[(x,y)][(x,y-1)]['weight'] = dgSpeed
-			G[(x,y)][(x+1,y-1)]['weight'] = dgSpeed
-		elif (red < 100 and (green > 124 and green < 200) and blue < 100):
-			G[(x,y)][(x-1,y-1)]['weight'] = mgSpeed
-			G[(x,y)][(x-1,y)]['weight'] = mgSpeed
-			G[(x,y)][(x,y-1)]['weight'] = mgSpeed
-			G[(x,y)][(x+1,y-1)]['weight'] = mgSpeed
-		elif (red < 100 and green > 199 and blue < 100):
-			G[(x,y)][(x-1,y-1)]['weight'] = lgSpeed
-			G[(x,y)][(x-1,y)]['weight'] = lgSpeed
-			G[(x,y)][(x,y-1)]['weight'] = lgSpeed
-			G[(x,y)][(x+1,y-1)]['weight'] = lgSpeed
-		elif (red > 215 and green > 215 and blue < 10):
-			G[(x,y)][(x-1,y-1)]['weight'] = yellowSpeed
-			G[(x,y)][(x-1,y)]['weight'] = yellowSpeed
-			G[(x,y)][(x,y-1)]['weight'] = yellowSpeed
-			G[(x,y)][(x+1,y-1)]['weight'] = yellowSpeed
-'''	
-
-
 print("Finished processing. Ready to transfer")
 print("")
 
