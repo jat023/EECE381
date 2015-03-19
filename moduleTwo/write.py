@@ -1,18 +1,19 @@
 #Adam's write to DE2 program
-# Import the required module. 
+# Import the required module.
+import time
 import RPi.GPIO as GPIO
 from bitstring import BitArray, BitStream 
 # Set the mode to use physical numbering the pins. 
 
 GPIO.setmode(GPIO.BOARD) 
-# pin 3 is the PWM clock attempt. 
-GPIO.setup(3, GPIO.OUT)
+# pin 7 is the PWM clock attempt. 
+GPIO.setup(7, GPIO.OUT)
 
-p = GPIO.PWM(3, 50)    # create an object p for PWM on port 25 at 50 Hertz  
-p.start(50)             # start the PWM on 50 percent duty cycle              
+p = GPIO.PWM(7, 100)    # create an object p for PWM on port 25 at 100 Hertz  
+p.start(100)             # start the PWM on 50 percent duty cycle              
                         
-# pin 7 is the fake clock. 
-GPIO.setup(7,GPIO.OUT)
+# pin 3 is the fake clock. 
+GPIO.setup(3,GPIO.OUT)
 
 #pin 5 is the write enable
 GPIO.setup(5, GPIO.OUT) 
@@ -45,6 +46,7 @@ GPIO.output(5, True)
 
 data = BitArray('0b10101010')
 adress = BitArray('0b10101010')
+ 
 
 def toDatBus( dat ):
 	#pin37 is most significant bit
@@ -56,7 +58,7 @@ def toDatBus( dat ):
 	GPIO.output(23, dat[5]) 
 	GPIO.output(21, dat[6]) 
 	GPIO.output(19, dat[7])
-	print "set DatBus to:", dat.bin
+#	print "set DatBus to:", dat.bin
 	return
 
 def toAdBus( ad ):
@@ -69,23 +71,25 @@ def toAdBus( ad ):
 	GPIO.output(23, ad[5]) 
 	GPIO.output(21, ad[6]) 
 	GPIO.output(19, ad[7])
-	print "set AdBus to:", dat.bin
+#	print "set AdBus to:", adress.bin
 	return
 
 try:
-    # here you put your main loop or block of code
-    p.start(50) 
-    #p.ChangeFrequency(100)  # change the frequency to # Hz  
+    counter = 0
+      
     
-    while counter < 3000000:
+    while counter < 4096:
     
         # count up to 3000000 - takes ~7s
-        counter += 1
-        GPIO.output(7,True)
-        time.sleep(10)
-        GPIO.output(7,False)
-        time.sleep(10)    
-        print "Target reached: %d" % counter
+        toDatBus( data )
+	toAdBus( adress )
+	GPIO.output(5,True) #write enable =1
+        GPIO.output(3,True) #fake clock high
+        time.sleep(.001)
+        GPIO.output(3,False)
+	GPIO.output(5,False)    
+       	counter += 1
+
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
