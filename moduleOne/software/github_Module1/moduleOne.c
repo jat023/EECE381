@@ -19,6 +19,7 @@
 #include "stdio.h"
 #include "system.h"
 #include "sys/alt_irq.h"
+#include <alt_types.h>
 
 #include <Altera_UP_SD_Card_Avalon_Interface.h>
 #include "altera_up_avalon_audio.h"
@@ -38,9 +39,18 @@
 #define WIDTH 40
 #define MAXSIZE 60
 
+#define BUF_LEN 96
+
 //---------------------------------------------------
 //---------------STRUCTS ----------------------------
 //---------------------------------------------------
+
+struct audio_context {
+	short int audio_handle;
+	alt_up_audio_dev * audioPlayback;
+	unsigned int buffer[BUF_LEN];
+};
+
 struct stack {
 	int stk[MAXSIZE];
 	int top;
@@ -77,7 +87,102 @@ void setUpVideo();
 //---------------------------------------------------
 
 
+static void fill_AudioBuffer(void * context, alt_u32 id) {
+	struct audio_context *ctxt = (struct audio_context*) context;
+
+	// Wait for buffer fifo space
+	while (alt_up_audio_write_fifo_space(ctxt->audioPlayback, ALT_UP_AUDIO_LEFT)
+			< BUF_LEN)
+		;
+
+	alt_up_audio_write_fifo(ctxt->audioPlayback, ctxt->buffer, BUF_LEN, ALT_UP_AUDIO_LEFT);
+	alt_up_audio_write_fifo(ctxt->audioPlayback, ctxt->buffer, BUF_LEN, ALT_UP_AUDIO_RIGHT);
+
+	IOWR_16DIRECT(AUDIO_0_BASE, 0, 0);
+	alt_up_audio_enable_write_interrupt(ctxt->audioPlayback);
+
+	int i;
+	for (i = 0; i < BUF_LEN; i++) {
+		short int byte_l0 = alt_up_sd_card_read(ctxt->audio_handle);
+		short int byte_l1 = alt_up_sd_card_read(ctxt->audio_handle);
+
+		short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
+
+		ctxt->buffer[i] = (int) (left16 / 50);
+	}
+
+	return;
+}
+
 int main(void) {
+
+
+		// ************************************** AUDIO PLAYBACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	alt_up_sd_card_dev *device_reference = NULL;
+	int connected = 0;
+	device_reference = alt_up_sd_card_open_dev("/dev/sd_card");
+
+	if (device_reference != NULL) {
+		while (1) {
+			if ((connected == 0) && (alt_up_sd_card_is_Present())) {
+
+				printf("Card connected.\n");
+
+				if (alt_up_sd_card_is_FAT16()) {
+					printf("FAT16 file system detected.\n");
+
+					// Start opening audio file
+					short int audio_handle = alt_up_sd_card_fopen("audio.wav",
+							0);
+
+					if (audio_handle >= 0) {
+
+						// Set up the audio/video IP core made in SOPC
+						alt_up_av_config_dev * av_config;
+						av_config = alt_up_av_config_open_dev(
+								"/dev/audio_and_video_config_0");
+
+						while (!alt_up_av_config_read_ready(av_config))
+							;
+
+						alt_up_audio_dev * audioPlayback;
+						audioPlayback = alt_up_audio_open_dev(AUDIO_0_NAME);
+						if (audioPlayback == NULL) {
+							fprintf(stderr, "Error opening audio device.\n");
+						} else {
+							printf("Audio device initiated.\n");
+						}
+
+						// Enable interrupts
+						struct audio_context *context = malloc(sizeof(struct audio_context));
+						context->audio_handle = audio_handle;
+						context->audioPlayback = audioPlayback;
+
+						alt_irq_register(AUDIO_0_IRQ, (void*) context,
+								(void*) fill_AudioBuffer);
+						alt_up_audio_enable_write_interrupt(audioPlayback);
+
+						free(context);
+					} else {
+						fprintf(stderr, "Error opening audio file.\n");
+						break;
+					}
+				} else {
+					printf("Unknown file system.\n");
+				}
+				connected = 1;
+			} else if ((connected == 1)
+					&& (alt_up_sd_card_is_Present() == false)) {
+
+				printf("Card disconnected.\n");
+
+				connected = 0;
+			}
+		}
+
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< AUDIO PLAYBACK ************************************************
+	}
 
 	Arrow tempArrow;
 	int i;
@@ -132,13 +237,6 @@ int main(void) {
 		}
 	}
 	*/
-
-	alt_up_sd_card_dev *device_reference = alt_up_sd_card_open_dev("/dev/sd_card");
-	setUpVideo();
-
-	if (device_reference != NULL) {
-		playAudio();
-	}
 
 	return 0;
 }
@@ -284,170 +382,6 @@ void av_config_setup() {
 
 	while (!alt_up_av_config_read_ready(av_config)) {
 
-	}
-}
-
-/***********************************************************************
- * playAudio function will play audio files from the SD card
- * contains arrow drawing code
- * Parameter: None
- * Return: Void
- **********************************************************************/
-void playAudio() {
-
-	char userInput;
-	int connected = 0;
-	int songEnded = 0;
-
-	if ((connected == 0) && (alt_up_sd_card_is_Present())) {
-		printf("Card connected.\n");
-
-		if (alt_up_sd_card_is_FAT16()) {
-			printf("FAT16 file system detected.\n");
-
-			// Start opening audio file
-			short int audio_handle = alt_up_sd_card_fopen("audio.wav", 0);
-
-			if (audio_handle >= 0) {
-				// Start audio play back
-				unsigned int buf_left[1];
-				av_config_setup();
-
-				alt_up_audio_dev * audioPlayback;
-				audioPlayback = alt_up_audio_open_dev("/dev/audio_0");
-
-				if (audioPlayback == NULL) {
-					fprintf(stderr, "Error opening audio device.\n");
-				} else {
-					printf("Audio device initiated.\n");
-				}
-
-				short int byte_l0 = alt_up_sd_card_read(audio_handle);
-				short int byte_l1 = alt_up_sd_card_read(audio_handle);
-
-				// Do LOOP: includes both playing audio and continuously reading KB input
-				do {
-					userInput = readKeyboard();
-					int arrowNumber = pop();
-
-					if (arrowNumber == UP_ARROW) {
-						if ((byte_l0 >= 0) || (byte_l1 >= 0)) {
-							while("arrow still has not reached top" && ((byte_l0 >= 0) || (byte_l1 >= 0))) {
-								// code from Chris's computer to create UP arrow
-
-								short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
-								buf_left[0] = (int) (left16 / 50);
-								while (alt_up_audio_write_fifo_space(audioPlayback, ALT_UP_AUDIO_LEFT) < 1);
-
-								// Send audio bits to LEFT and RIGHT buffers
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1, ALT_UP_AUDIO_LEFT);
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1,	ALT_UP_AUDIO_RIGHT);
-
-								// Read next bytes of data
-								byte_l0 = alt_up_sd_card_read(audio_handle);
-								byte_l1 = alt_up_sd_card_read(audio_handle);
-							}
-						} else {
-							songEnded = 1;
-						}
-					} else if (arrowNumber == DOWN_ARROW) {
-						if ((byte_l0 >= 0) || (byte_l1 >= 0)) {
-							while("arrow still has not reached top" && ((byte_l0 >= 0) || (byte_l1 >= 0))) {
-								// code from Chris's computer to create UP arrow
-
-								short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
-								buf_left[0] = (int) (left16 / 50);
-								while (alt_up_audio_write_fifo_space(audioPlayback, ALT_UP_AUDIO_LEFT) < 1);
-
-								// Send audio bits to LEFT and RIGHT buffers
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1, ALT_UP_AUDIO_LEFT);
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1,	ALT_UP_AUDIO_RIGHT);
-
-								// Read next bytes of data
-								byte_l0 = alt_up_sd_card_read(audio_handle);
-								byte_l1 = alt_up_sd_card_read(audio_handle);
-							}
-						} else {
-							songEnded = 1;
-						}
-					} else if (arrowNumber == LEFT_ARROW) {
-						if ((byte_l0 >= 0) || (byte_l1 >= 0)) {
-							while("arrow still has not reached top" && ((byte_l0 >= 0) || (byte_l1 >= 0))) {
-								// code from Chris's computer to create UP arrow
-
-								short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
-								buf_left[0] = (int) (left16 / 50);
-								while (alt_up_audio_write_fifo_space(audioPlayback, ALT_UP_AUDIO_LEFT) < 1);
-
-								// Send audio bits to LEFT and RIGHT buffers
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1, ALT_UP_AUDIO_LEFT);
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1,	ALT_UP_AUDIO_RIGHT);
-
-								// Read next bytes of data
-								byte_l0 = alt_up_sd_card_read(audio_handle);
-								byte_l1 = alt_up_sd_card_read(audio_handle);
-							}
-						} else {
-							songEnded = 1;
-						}
-					} else if (arrowNumber == RIGHT_ARROW) {
-						if ((byte_l0 >= 0) || (byte_l1 >= 0)) {
-							while("arrow still has not reached top" && ((byte_l0 >= 0) || (byte_l1 >= 0))) {
-								// code from Chris's computer to create UP arrow
-
-								short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
-								buf_left[0] = (int) (left16 / 50);
-								while (alt_up_audio_write_fifo_space(audioPlayback, ALT_UP_AUDIO_LEFT) < 1);
-
-								// Send audio bits to LEFT and RIGHT buffers
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1, ALT_UP_AUDIO_LEFT);
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1,	ALT_UP_AUDIO_RIGHT);
-
-								// Read next bytes of data
-								byte_l0 = alt_up_sd_card_read(audio_handle);
-								byte_l1 = alt_up_sd_card_read(audio_handle);
-							}
-						} else {
-							songEnded = 1;
-						}
-					} else {
-						//do not draw arrow
-						//or draw an arrow according to background colour to mimic "no" arrow
-						if ((byte_l0 >= 0) || (byte_l1 >= 0)) {
-							while("arrow still has not reached top" && ((byte_l0 >= 0) || (byte_l1 >= 0))) {
-								// code from Chris's computer to create UP arrow
-
-								short left16 = ((unsigned char) byte_l1 << 8) | (unsigned char) byte_l0;
-								buf_left[0] = (int) (left16 / 50);
-								while (alt_up_audio_write_fifo_space(audioPlayback, ALT_UP_AUDIO_LEFT) < 1);
-
-								// Send audio bits to LEFT and RIGHT buffers
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1, ALT_UP_AUDIO_LEFT);
-								alt_up_audio_write_fifo(audioPlayback, buf_left, 1,	ALT_UP_AUDIO_RIGHT);
-
-								// Read next bytes of data
-								byte_l0 = alt_up_sd_card_read(audio_handle);
-								byte_l1 = alt_up_sd_card_read(audio_handle);
-							}
-						} else {
-							songEnded = 1;
-						}
-					}
-
-					// Continue audio play while song is still playing
-				} while (songEnded == 0);
-
-			} else {
-				fprintf(stderr, "Error opening audio file.\n");
-				//break;
-			}
-		} else {
-			printf("Unknown file system.\n");
-		}
-		connected = 1;
-	} else if ((connected == 1) && (alt_up_sd_card_is_Present() == false)) {
-		printf("Card disconnected.\n");
-		connected = 0;
 	}
 }
 
