@@ -3,14 +3,35 @@
 import time
 import RPi.GPIO as GPIO
 from bitstring import BitArray, BitStream 
-# Set the mode to use physical numbering the pins. 
+import imgproc
+from imgproc import *
+# Set the mode to use physical numbering the pins.
+
+img = Image("/home/pi/Desktop/381map.bmp")
+
+# iterate over each pixel in the image
+for x in range(0, img.width):
+	for y in range(0, img.height):
+		# Get the value at the xth column and yth row, place the intensities into variables
+		red, green, blue = img[x, y]
+
+		#use this to set up the info you want to transfer
+ 
 
 GPIO.setmode(GPIO.BOARD) 
-# pin 7 is the PWM clock attempt. 
-GPIO.setup(7, GPIO.OUT)
 
-p = GPIO.PWM(7, 100)    # create an object p for PWM on port 25 at 100 Hertz  
-p.start(100)             # start the PWM on 50 percent duty cycle              
+# pin 7 is the PWM clock attempt. 
+#GPIO.setup(7, GPIO.OUT)
+#p = GPIO.PWM(7, 100)    # create an object p for PWM on port 25 at 100 Hertz  
+#p.start(100)             # start the PWM on 50 percent duty cycle
+
+#pins 11,13,15 are the state sent from the DE2
+GPIO.setup(11, GPIO.IN)
+GPIO.setup(13, GPIO.IN)
+GPIO.setup(15, GPIO.IN) 
+
+# pin 7 is the Pi write Request 
+GPIO.setup(7, GPIO.OUT)              
                         
 # pin 3 is the fake clock. 
 GPIO.setup(3,GPIO.OUT)
@@ -31,7 +52,8 @@ GPIO.setup(37, GPIO.OUT)
 
 # clock and write enable to 0 
 GPIO.output(3, False)
-GPIO.output(5, False) 
+GPIO.output(5, False)
+GPIO.output(7, False) 
 
 GPIO.output(19, True) 
 GPIO.output(21, False) 
@@ -75,21 +97,45 @@ def toAdBus( ad ):
 	return
 
 try:
+    #in total want to send 4096 bytes of data
+    
+    #Fist byte iforms DE2 if another transfer will be needed
+    #after the DE2 finshes reading the current data being input
+    adress = BitArray('0b00000000')
+    
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    time.sleep(.001)
+    GPIO.output(3,False)
+    GPIO.output(5,False)    
+        
+    #second byte is length of     
+    adress = BitArray('0b00000001')    
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    time.sleep(.001)
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+    adress += '0b01'
+    
     counter = 0
       
-    
-    while counter < 4096:
+    while counter < 4094: 
     
         # count up to 3000000 - takes ~7s
         toDatBus( data )
-	toAdBus( adress )
-	GPIO.output(5,True) #write enable =1
+        toAdBus( adress )
+        GPIO.output(5,True) #write enable =1
         GPIO.output(3,True) #fake clock high
         time.sleep(.001)
         GPIO.output(3,False)
-	GPIO.output(5,False)    
+        GPIO.output(5,False)    
        	counter += 1
-
+        adress += '0b01'
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
