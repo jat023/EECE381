@@ -54,9 +54,8 @@ int main() {
 	  write_fsm_state(curr_state);
 	  FSM_States next_state = curr_state;
 
+    /*
 	  switch(curr_state) {
-      
-      /*
 	  	  case ready:
 	  		  while(!read_pi_request());
 	  		  next_state = waiting_for_image_data;
