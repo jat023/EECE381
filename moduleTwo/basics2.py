@@ -40,8 +40,8 @@ for x in range (0, img.width):
 print "Number of nodes: ", G.number_of_nodes()
 
 	#add edges and their respective speeds between nodes
-for x in range (1, img.width - 1):
-	for y in range(1, img.height - 1):
+for y in range (1, img.height - 1):
+	for x in range(1, img.width - 1):
 		#get RGB color value of the current node
 		red, green, blue = img[x,y]
 		
