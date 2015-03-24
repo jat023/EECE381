@@ -22,14 +22,6 @@ img = Image("/home/pi/Desktop/381map.bmp")
 #display image in viewer
 viewer.displayImage(img)
 
-#constants used in the algorithm
-ref_red = 192
-ref_blue = 80
-ref_green = 80
-threshold = 96 
-m = img.width	#x axis
-n = img.height	#y axis
-
 #speeds through terrain; simple five colors used for testing purposes
 #may need to be modified later
 dgSpeed = 0.15
@@ -38,7 +30,7 @@ lgSpeed = 0.70
 yellowSpeed = 0.90
 whiteSpeed = 0.95
 
-
+	#creates graph by adding all the nodes, one for each pixel
 print("Creating graph. Give me a minute ...")
 G = nx.Graph()
 for x in range (0, img.width):
@@ -47,7 +39,7 @@ for x in range (0, img.width):
 
 print "Number of nodes: ", G.number_of_nodes()
 
-
+	#add edges and their respective speeds between nodes
 for x in range (1, img.width - 1):
 	for y in range(1, img.height - 1):
 		#get RGB color value of the current node
@@ -85,8 +77,6 @@ for x in range (1, img.width - 1):
 			G.add_edge((x,y),(x+1,y+1), weight = yellowSpeed)
 
 print "Number of edges: ", G.number_of_edges()
-
-
 print("")
 print("Done creating graph")
 print("")
