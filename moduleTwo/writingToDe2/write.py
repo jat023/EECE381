@@ -84,23 +84,23 @@ def toDatBus( dat ):
 	return
 
 def toAdBus( ad ):
-	#pin8 is most significant bit
-	GPIO.output(37, ad[0]) 
-	GPIO.output(35, ad[1]) 
-	GPIO.output(33, ad[2]) 
-	GPIO.output(31, ad[3])
-	GPIO.output(29, ad[4]) 
-	GPIO.output(23, ad[5]) 
-	GPIO.output(21, ad[6]) 
-	GPIO.output(19, ad[7])
+	#pin26 is most significant bit
+	GPIO.output(26, ad[0]) 
+	GPIO.output(24, ad[1]) 
+	GPIO.output(22, ad[2]) 
+	GPIO.output(18, ad[3])
+	GPIO.output(16, ad[4]) 
+	GPIO.output(12, ad[5]) 
+	GPIO.output(10, ad[6]) 
+	GPIO.output(8, ad[7])
 #	print "set AdBus to:", adress.bin
 	return
 
 try:
     #in total want to send 4096 bytes of data
     
-    #Fist byte iforms DE2 if another transfer will be needed
-    #after the DE2 finshes reading the current data being input
+    #Fist byte informs DE2 if another transfer will be needed
+    #after the DE2 finishes reading the current data being input
     adress = BitArray('0b00000000')
     
     toDatBus( data )
