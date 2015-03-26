@@ -8,22 +8,9 @@ from imgproc import *
 # Set the mode to use physical numbering the pins.
 
 img = Image("/home/pi/Desktop/381map.bmp")
-
-# iterate over each pixel in the image
-for x in range(0, img.width):
-	for y in range(0, img.height):
-		# Get the value at the xth column and yth row, place the intensities into variables
-		red, green, blue = img[x, y]
-
-		#use this to set up the info you want to transfer
  
 
 GPIO.setmode(GPIO.BOARD) 
-
-# pin 7 is the PWM clock attempt. 
-#GPIO.setup(7, GPIO.OUT)
-#p = GPIO.PWM(7, 100)    # create an object p for PWM on port 25 at 100 Hertz  
-#p.start(100)             # start the PWM on 50 percent duty cycle
 
 #pins 11,13,15 are the state sent from the DE2
 GPIO.setup(11, GPIO.IN)
@@ -84,15 +71,15 @@ def toDatBus( dat ):
 	return
 
 def toAdBus( ad ):
-	#pin8 is most significant bit
-	GPIO.output(37, ad[0]) 
-	GPIO.output(35, ad[1]) 
-	GPIO.output(33, ad[2]) 
-	GPIO.output(31, ad[3])
-	GPIO.output(29, ad[4]) 
-	GPIO.output(23, ad[5]) 
-	GPIO.output(21, ad[6]) 
-	GPIO.output(19, ad[7])
+	#pin26 is most significant bit
+	GPIO.output(26, ad[0]) 
+	GPIO.output(24, ad[1]) 
+	GPIO.output(22, ad[2]) 
+	GPIO.output(18, ad[3])
+	GPIO.output(16, ad[4]) 
+	GPIO.output(12, ad[5]) 
+	GPIO.output(10, ad[6]) 
+	GPIO.output(8, ad[7])
 #	print "set AdBus to:", adress.bin
 	return
 
@@ -122,11 +109,20 @@ try:
     GPIO.output(5,False) 
     adress += '0b01'
     
-    counter = 0
-      
-    while counter < 4094: 
+     #have an extra two bytes
+    counter = 0    
+    x = 0
+    y = 0
+    xMax = img.width
+    yMax = img.height
+    red, green, blue = img[x, y]
+   
+
+	#use this to set up the info you want to transfer
+    #write 4092 bytes of data
+    while counter < 1364: 
     
-        # count up to 3000000 - takes ~7s
+        data = BitArray('{0:08b}'.format(red))
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -134,8 +130,35 @@ try:
         time.sleep(.001)
         GPIO.output(3,False)
         GPIO.output(5,False)    
-       	counter += 1
         adress += '0b01'
+        
+        data = BitArray('{0:08b}'.format(green))
+        toDatBus( data )
+        toAdBus( adress )
+        GPIO.output(5,True) #write enable =1
+        GPIO.output(3,True) #fake clock high
+        time.sleep(.001)
+        GPIO.output(3,False)
+        GPIO.output(5,False)    
+        adress += '0b01'
+        
+        data = BitArray('{0:08b}'.format(blue))
+        toDatBus( data )
+        toAdBus( adress )
+        GPIO.output(5,True) #write enable =1
+        GPIO.output(3,True) #fake clock high
+        time.sleep(.001)
+        GPIO.output(3,False)
+        GPIO.output(5,False)    
+        adress += '0b01'
+        
+        if( x < xMax )
+            x+=1
+        else
+            x=0
+            y+=1
+        
+        counter += 1
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
@@ -143,5 +166,4 @@ except KeyboardInterrupt:
     print "Exits when counter is at: %d" % counter # print value of counter
         
 finally:
-    p.stop()                # stop the PWM output
     GPIO.cleanup() # this ensures a clean exit
