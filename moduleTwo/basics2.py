@@ -40,8 +40,8 @@ for x in range (0, 10):
 print "Number of nodes: ", G.number_of_nodes()
 
 	#add edges and their respective speeds between nodes
-for y in range (0, 10):
-	for x in range(0, 10):
+for y in range (1, 10):
+	for x in range(1, 10):
 		#get RGB color value of the current node
 		red, green, blue = img[x,y]
 		
@@ -61,17 +61,27 @@ for y in range (0, 10):
 		elif (red > 215 and green > 215 and blue < 10):
 			weight = yellowSpeed
 
-		G.add_edge( (x,y),(x-1,y-1),weight = weight)
-		G.add_edge((x,y),(x-1,y), weight = weight)
-		G.add_edge((x,y),(x,y-1), weight = weight)
-		G.add_edge((x,y),(x+1,y+1), weight = weight)
+		if (x == 10):
+			G.add_edge((x,y),(x-1,y), weight = weight)
+			G.add_edge( (x,y),(x-1,y-1),weight = weight)
+			G.add_edge((x,y),(x,y-1), weight = weight)
+		else:
+			G.add_edge((x,y),(x-1,y), weight = weight)
+			G.add_edge( (x,y),(x-1,y-1),weight = weight)
+			G.add_edge((x,y),(x,y-1), weight = weight)
+			G.add_edge((x,y),(x+1,y+1), weight = weight)
 
 print "Number of edges: ", G.number_of_edges()
 print("")
 print("Done creating graph")
 print("")
+pos = nx.spring_layout(G)
+elarge=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] > 0.5]
+esmall=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] < 0.5]
 
-nx.draw(G)
+nx.draw_networkx_nodes(G,pos, node_size=700)
+nx.draw_networkx_edges(G,pos, edgelist=elarge,width=6,style='dashed')
+nx.draw_networkx_edges(G,pos, edgelist=esmall,width=3)
 plt.show()
 
 print("Processing image...")
