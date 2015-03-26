@@ -33,53 +33,47 @@ whiteSpeed = 0.95
 	#creates graph by adding all the nodes, one for each pixel
 print("Creating graph. Give me a minute ...")
 G = nx.Graph()
-for x in range (0, img.width):
-	for y in range(0, img.height):
+for x in range (0, 10):
+	for y in range(0, 10):
 		G.add_node((x,y))
 
 print "Number of nodes: ", G.number_of_nodes()
 
 	#add edges and their respective speeds between nodes
-for y in range (1, img.height - 1):
-	for x in range(1, img.width - 1):
+for y in range (0, 10):
+	for x in range(0, 10):
 		#get RGB color value of the current node
 		red, green, blue = img[x,y]
 		
 		# sets weight to whiteSpeed for edge
 		if (red > 225 and green > 225 and blue > 225):
-			G.add_edge( (x,y) , (x-1,y-1) , weight = whiteSpeed)
-			G.add_edge((x,y),(x-1,y), weight = whiteSpeed)
-			G.add_edge((x,y),(x,y-1), weight = whiteSpeed)
-			G.add_edge((x,y),(x+1,y+1), weight = whiteSpeed)
+			weight = whiteSpeed
 		# sets weight to dgSpeed (dark green) for edge
 		elif (red < 100 and green < 125 and blue < 100):
-			G.add_edge((x,y),(x-1,y-1), weight = dgSpeed)
-			G.add_edge((x,y),(x-1,y), weight = dgSpeed)
-			G.add_edge((x,y),(x,y-1), weight = dgSpeed)
-			G.add_edge((x,y),(x+1,y+1), weight = dgSpeed)
+			weight = dgSpeed
 		# sets weight to mgSpeed (medium green) for edge
 		elif (red < 100 and (green > 124 and green < 200) and blue < 100):
-			G.add_edge((x,y),(x-1,y-1), weight = mgSpeed)
-			G.add_edge((x,y),(x-1,y), weight = mgSpeed)
-			G.add_edge((x,y),(x,y-1), weight = mgSpeed)
-			G.add_edge((x,y),(x+1,y+1), weight = mgSpeed)	
+			weight = mgSpeed
 		# sets weight to lgSpeed (light green) for edge
 		elif (red < 100 and green > 199 and blue < 100):
-			G.add_edge((x,y),(x-1,y-1), weight = lgSpeed)
-			G.add_edge((x,y),(x-1,y), weight = lgSpeed)
-			G.add_edge((x,y),(x,y-1), weight = lgSpeed)
-			G.add_edge((x,y),(x+1,y+1), weight = lgSpeed)
+			weight = lgSpeed
 		# sets weight to yellowSpeed for edge
 		elif (red > 215 and green > 215 and blue < 10):
-			G.add_edge((x,y),(x-1,y-1), weight = yellowSpeed)
-			G.add_edge((x,y),(x-1,y), weight = yellowSpeed)
-			G.add_edge((x,y),(x,y-1), weight = yellowSpeed)
-			G.add_edge((x,y),(x+1,y+1), weight = yellowSpeed)
+			weight = yellowSpeed
+
+		G.add_edge( (x,y),(x-1,y-1),weight = weight)
+		G.add_edge((x,y),(x-1,y), weight = weight)
+		G.add_edge((x,y),(x,y-1), weight = weight)
+		G.add_edge((x,y),(x+1,y+1), weight = weight)
 
 print "Number of edges: ", G.number_of_edges()
 print("")
 print("Done creating graph")
 print("")
+
+nx.draw(G)
+plt.show()
+
 print("Processing image...")
 print("")
 print("Finished processing. Ready to transfer")
