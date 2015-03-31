@@ -36,22 +36,23 @@ GPIO.setup(33, GPIO.OUT)
 GPIO.setup(35, GPIO.OUT) 
 GPIO.setup(37, GPIO.OUT)  
 
+GPIO.setup(26, GPIO.OUT) 
+GPIO.setup(24, GPIO.OUT) 
+GPIO.setup(22, GPIO.OUT) 
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(16, GPIO.OUT) 
+GPIO.setup(12, GPIO.OUT) 
+GPIO.setup(10, GPIO.OUT) 
+GPIO.setup(8, GPIO.OUT)  
+
+
 
 # clock and write enable to 0 
 GPIO.output(3, False)
 GPIO.output(5, False)
 GPIO.output(7, False) 
 
-GPIO.output(19, True) 
-GPIO.output(21, False) 
-GPIO.output(23, True) 
-GPIO.output(29, False)
-GPIO.output(31, True) 
-GPIO.output(33, False) 
-GPIO.output(35, True) 
-GPIO.output(37, False)
 
-GPIO.output(5, True)
 
 data = BitArray('0b10101010')
 adress = BitArray('0b10101010')
@@ -152,9 +153,9 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-        if( x < xMax )
+        if ( x < xMax ):
             x+=1
-        else
+        else:
             x=0
             y+=1
         
