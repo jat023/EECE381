@@ -25,8 +25,8 @@ GPIO.setup(3,GPIO.OUT)
 
 #pin 5 is the write enable
 GPIO.setup(5, GPIO.OUT) 
-#rest are for the bus
 
+#data bus
 GPIO.setup(19, GPIO.OUT) 
 GPIO.setup(21, GPIO.OUT) 
 GPIO.setup(23, GPIO.OUT) 
@@ -36,6 +36,7 @@ GPIO.setup(33, GPIO.OUT)
 GPIO.setup(35, GPIO.OUT) 
 GPIO.setup(37, GPIO.OUT)  
 
+#adress bus
 GPIO.setup(26, GPIO.OUT) 
 GPIO.setup(24, GPIO.OUT) 
 GPIO.setup(22, GPIO.OUT) 
@@ -123,7 +124,8 @@ try:
     #write 4092 bytes of data
     while counter < 1364: 
     
-        data = BitArray('{0:08b}'.format(red))
+#        data = BitArray(bin='{0:08b}'.format(red))
+        data = BitArray('0b00000000')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -133,7 +135,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-        data = BitArray('{0:08b}'.format(green))
+#        data = BitArray(bin='{0:08b}'.format(green))
+        data = BitArray('0b00001111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -143,7 +146,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-        data = BitArray('{0:08b}'.format(blue))
+#        data = BitArray(bin='{0:08b}'.format(blue))
+        data = BitArray('0b11111111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -160,6 +164,8 @@ try:
             y+=1
         
         counter += 1
+
+    print "done writing- hope it worked"
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
