@@ -91,6 +91,9 @@ try:
     #Fist byte iforms DE2 if another transfer will be needed
     #after the DE2 finshes reading the current data being input
     adress = BitArray('0b00000000')
+
+    #send pi write request
+    GPIO.output(7, True)
     
     toDatBus( data )
     toAdBus( adress )
@@ -124,8 +127,8 @@ try:
     #write 4092 bytes of data
     while counter < 1364: 
     
-#        data = BitArray(bin='{0:08b}'.format(red))
-        data = BitArray('0b00000000')
+        data = BitArray(bin='{0:08b}'.format(red))
+#       data = BitArray('0b00000000')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -135,8 +138,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-#        data = BitArray(bin='{0:08b}'.format(green))
-        data = BitArray('0b00001111')
+        data = BitArray(bin='{0:08b}'.format(green))
+#        data = BitArray('0b00001111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -146,8 +149,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-#        data = BitArray(bin='{0:08b}'.format(blue))
-        data = BitArray('0b11111111')
+        data = BitArray(bin='{0:08b}'.format(blue))
+#       data = BitArray('0b11111111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -170,7 +173,8 @@ try:
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
-    print "Exits when counter is at: %d" % counter # print value of counter
+    print "Interupted when counter is at: %d" % counter # print value of counter
         
 finally:
+    GPIO.output(7, False)
     GPIO.cleanup() # this ensures a clean exit
