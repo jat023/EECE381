@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'nios_system'
  * SOPC Builder design path: C:/Users/Kyle/Dropbox/School/CPEN_Y3_T2/EECE381/Projects/module_2_v2/quartus/nios_system.sopcinfo
  *
- * Generated: Thu Mar 19 08:43:34 PDT 2015
+ * Generated: Thu Apr 02 09:53:25 PDT 2015
  */
 
 /*
@@ -132,6 +132,7 @@
 #define __ALTERA_AVALON_TIMER
 #define __ALTERA_NIOS2_QSYS
 #define __ALTERA_UP_AVALON_CHARACTER_LCD
+#define __ALTERA_UP_AVALON_PARALLEL_PORT
 #define __ALTERA_UP_AVALON_SRAM
 #define __ALTERA_UP_AVALON_VIDEO_PIXEL_BUFFER_DMA
 #define __ALTERA_UP_SD_CARD_AVALON_INTERFACE
@@ -144,7 +145,7 @@
  */
 
 #define ALT_MODULE_CLASS_LEDs altera_avalon_pio
-#define LEDS_BASE 0x38b0
+#define LEDS_BASE 0x38d0
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -170,7 +171,7 @@
  *
  */
 
-#define ALT_DEVICE_FAMILY "Cyclone IV GX"
+#define ALT_DEVICE_FAMILY "Cyclone II"
 #define ALT_ENHANCED_INTERRUPT_API_PRESENT
 #define ALT_IRQ_BASE NULL
 #define ALT_LOG_PORT "/dev/null"
@@ -181,19 +182,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x38d0
+#define ALT_STDERR_BASE 0x38f0
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x38d0
+#define ALT_STDIN_BASE 0x38f0
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x38d0
+#define ALT_STDOUT_BASE 0x38f0
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -207,12 +208,26 @@
  */
 
 #define ALT_MODULE_CLASS_character_lcd_0 altera_up_avalon_character_lcd
-#define CHARACTER_LCD_0_BASE 0x38d8
+#define CHARACTER_LCD_0_BASE 0x38f8
 #define CHARACTER_LCD_0_IRQ -1
 #define CHARACTER_LCD_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define CHARACTER_LCD_0_NAME "/dev/character_lcd_0"
 #define CHARACTER_LCD_0_SPAN 2
 #define CHARACTER_LCD_0_TYPE "altera_up_avalon_character_lcd"
+
+
+/*
+ * de2_state configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_de2_state altera_up_avalon_parallel_port
+#define DE2_STATE_BASE 0x38b0
+#define DE2_STATE_IRQ -1
+#define DE2_STATE_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define DE2_STATE_NAME "/dev/de2_state"
+#define DE2_STATE_SPAN 16
+#define DE2_STATE_TYPE "altera_up_avalon_parallel_port"
 
 
 /*
@@ -260,7 +275,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x38d0
+#define JTAG_UART_0_BASE 0x38f0
 #define JTAG_UART_0_IRQ 0
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -278,7 +293,7 @@
  */
 
 #define ALT_MODULE_CLASS_keys altera_avalon_pio
-#define KEYS_BASE 0x38c0
+#define KEYS_BASE 0x38e0
 #define KEYS_BIT_CLEARING_EDGE_REGISTER 0
 #define KEYS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define KEYS_CAPTURE 0
@@ -343,6 +358,20 @@
 
 
 /*
+ * pi_request configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_pi_request altera_up_avalon_parallel_port
+#define PI_REQUEST_BASE 0x38a0
+#define PI_REQUEST_IRQ -1
+#define PI_REQUEST_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define PI_REQUEST_NAME "/dev/pi_request"
+#define PI_REQUEST_SPAN 16
+#define PI_REQUEST_TYPE "altera_up_avalon_parallel_port"
+
+
+/*
  * pixel_buffer configuration
  *
  */
@@ -362,7 +391,7 @@
  */
 
 #define ALT_MODULE_CLASS_pixel_buffer_dma altera_up_avalon_video_pixel_buffer_dma
-#define PIXEL_BUFFER_DMA_BASE 0x38a0
+#define PIXEL_BUFFER_DMA_BASE 0x38c0
 #define PIXEL_BUFFER_DMA_IRQ -1
 #define PIXEL_BUFFER_DMA_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define PIXEL_BUFFER_DMA_NAME "/dev/pixel_buffer_dma"

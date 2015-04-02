@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'nios_system'
  * SOPC Builder design path: C:/Users/Kyle/Dropbox/School/CPEN_Y3_T2/EECE381/Projects/module_2_v2/quartus/nios_system.sopcinfo
  *
- * Generated: Thu Mar 19 08:43:34 PDT 2015
+ * Generated: Thu Apr 02 09:53:25 PDT 2015
  */
 
 /*
@@ -63,6 +63,7 @@
 #include "altera_avalon_jtag_uart.h"
 #include "altera_avalon_timer.h"
 #include "altera_up_avalon_character_lcd.h"
+#include "altera_up_avalon_parallel_port.h"
 #include "altera_up_avalon_video_pixel_buffer_dma.h"
 
 /*
@@ -74,6 +75,8 @@ ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_SYSTEM, timer_system);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_TIMESTAMP, timer_timestamp);
 ALTERA_UP_AVALON_CHARACTER_LCD_INSTANCE ( CHARACTER_LCD_0, character_lcd_0);
+ALTERA_UP_AVALON_PARALLEL_PORT_INSTANCE ( DE2_STATE, de2_state);
+ALTERA_UP_AVALON_PARALLEL_PORT_INSTANCE ( PI_REQUEST, pi_request);
 ALTERA_UP_AVALON_VIDEO_PIXEL_BUFFER_DMA_INSTANCE ( PIXEL_BUFFER_DMA, pixel_buffer_dma);
 ALTERA_UP_SD_CARD_AVALON_INTERFACE_INSTANCE ( SD_CARD, sd_card);
 
@@ -102,6 +105,8 @@ void alt_sys_init( void )
     ALTERA_AVALON_TIMER_INIT ( TIMER_TIMESTAMP, timer_timestamp);
     ALTERA_AVALON_JTAG_UART_INIT ( JTAG_UART_0, jtag_uart_0);
     ALTERA_UP_AVALON_CHARACTER_LCD_INIT ( CHARACTER_LCD_0, character_lcd_0);
+    ALTERA_UP_AVALON_PARALLEL_PORT_INIT ( DE2_STATE, de2_state);
+    ALTERA_UP_AVALON_PARALLEL_PORT_INIT ( PI_REQUEST, pi_request);
     ALTERA_UP_AVALON_VIDEO_PIXEL_BUFFER_DMA_INIT ( PIXEL_BUFFER_DMA, pixel_buffer_dma);
     ALTERA_UP_SD_CARD_AVALON_INTERFACE_INIT ( SD_CARD, sd_card);
 }

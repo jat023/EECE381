@@ -16,8 +16,8 @@
 #   clock in TimeQuest Timing Analyzer
 #**************************************************************
 
-#create_clock -period 10MHz {altera_reserved_tck}
-#set_clock_groups -asynchronous -group {altera_reserved_tck}
+#create_clock -period 10MHz {altera_internal_jtag|tckutap}
+#set_clock_groups -asynchronous -group {altera_internal_jtag|tckutap}
 
 #**************************************************************
 # Set TCL Path Variables 

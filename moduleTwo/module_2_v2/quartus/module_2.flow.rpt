@@ -1,5 +1,5 @@
 Flow report for module_2
-Thu Mar 19 10:44:59 2015
+Thu Apr 02 10:23:53 2015
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,17 +40,17 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Thu Mar 19 10:44:54 2015           ;
+; Flow Status                        ; Successful - Thu Apr 02 10:23:49 2015           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; module_2                                        ;
 ; Top-level Entity Name              ; module2                                         ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C35F672C6                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 8,182 / 33,216 ( 25 % )                         ;
-;     Total combinational functions  ; 7,348 / 33,216 ( 22 % )                         ;
-;     Dedicated logic registers      ; 5,161 / 33,216 ( 16 % )                         ;
-; Total registers                    ; 5229                                            ;
+; Total logic elements               ; 8,211 / 33,216 ( 25 % )                         ;
+;     Total combinational functions  ; 7,373 / 33,216 ( 22 % )                         ;
+;     Dedicated logic registers      ; 5,182 / 33,216 ( 16 % )                         ;
+; Total registers                    ; 5250                                            ;
 ; Total pins                         ; 177 / 475 ( 37 % )                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 399,360 / 483,840 ( 83 % )                      ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 03/19/2015 10:43:04 ;
+; Start date & time ; 04/02/2015 10:21:54 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; module_2            ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+---------------------------------------------------------------------+---------------+---------------------------------+------------+
 ; Assignment Name                     ; Value                                                               ; Default Value ; Entity Name                     ; Section Id ;
 +-------------------------------------+---------------------------------------------------------------------+---------------+---------------------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 280344026007716.142678698300360                                     ; --            ; --                              ; --         ;
+; COMPILER_SIGNATURE_ID               ; 280344026007716.142799531304268                                     ; --            ; --                              ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                                ; --            ; altera_avalon_sc_fifo           ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                                ; --            ; altera_merlin_burst_adapter     ; --         ;
 ; IP_TOOL_ENV                         ; Qsys                                                                ; --            ; altera_merlin_master_agent      ; --         ;
@@ -209,7 +209,7 @@ applicable agreement for further details.
 ; PARTITION_NETLIST_TYPE              ; SOURCE                                                              ; --            ; module2                         ; Top        ;
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                                                 ; --            ; --                              ; --         ;
 ; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                               ; --            ; --                              ; --         ;
-; SLD_INFO                            ; QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1426779393       ; --            ; nios_system                     ; --         ;
+; SLD_INFO                            ; QSYS_NAME nios_system HAS_SOPCINFO 1 GENERATION_ID 1427993145       ; --            ; nios_system                     ; --         ;
 ; SOPCINFO_FILE                       ; nios_system/synthesis/../../nios_system.sopcinfo                    ; --            ; --                              ; --         ;
 ; SYNTHESIS_ONLY_QIP                  ; On                                                                  ; --            ; --                              ; --         ;
 ; TOP_LEVEL_ENTITY                    ; module2                                                             ; module_2      ; --                              ; --         ;
@@ -221,11 +221,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:50     ; 1.0                     ; 703 MB              ; 00:00:51                           ;
-; Fitter                    ; 00:00:48     ; 1.0                     ; 792 MB              ; 00:00:48                           ;
-; Assembler                 ; 00:00:03     ; 1.0                     ; 455 MB              ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 531 MB              ; 00:00:03                           ;
-; Total                     ; 00:01:45     ; --                      ; --                  ; 00:01:45                           ;
+; Analysis & Synthesis      ; 00:00:54     ; 1.0                     ; 726 MB              ; 00:00:53                           ;
+; Fitter                    ; 00:00:50     ; 1.0                     ; 800 MB              ; 00:00:50                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 480 MB              ; 00:00:03                           ;
+; TimeQuest Timing Analyzer ; 00:00:03     ; 1.0                     ; 534 MB              ; 00:00:03                           ;
+; Total                     ; 00:01:51     ; --                      ; --                  ; 00:01:49                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

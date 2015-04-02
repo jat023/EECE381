@@ -5,6 +5,9 @@
 #include "system.h"
 #include "io.h"
 
+#define PI_REQUEST_SIG (volatile char *) 0x38a0
+#define DE2_STATE (char *) 0x38b0
+
 typedef enum {
 	ready = 0,
 	waiting_for_image_data = 1,
@@ -16,8 +19,6 @@ typedef enum {
 } FSM_States;
 
 /**
- * TODO Implement
- *
  * Writes the FSM state to the corresponding GPIO pins
  *
  * Params
@@ -27,19 +28,16 @@ typedef enum {
  * 	The corresponding GPIO pins are updated to reflect the given state
  */
 void write_fsm_state(FSM_States state) {
-	printf("%d\n", state); // Dummy function
+	*DE2_STATE = (int) state;
 }
 
 /**
- * TODO Implement
- *
  * Reads the pi request signal
  *
  * Returns 1 if the signal is on, 0 otherwise
  */
 int read_pi_request() {
-	srand(time(NULL));
-	return rand() % 2; // Dummy value
+	return (int)(*PI_REQUEST_SIG);
 }
 
 /*
@@ -116,6 +114,9 @@ int main() {
 
 	while (1) {
 
+		printf("Pi request signal is: %d", read_pi_request());
+		printf("Current state is: %d", curr_state);
+
 		FSM_States next_state = curr_state;
 
 		switch (curr_state) {
@@ -140,7 +141,7 @@ int main() {
 			next_state = reading_image_data;
 
 			break;
-		case reading_image_data:
+		case reading_image_data: {
 			printf("State: Reading image data\n");
 
 			// The 2nd byte should contain the total number of bytes to read
@@ -157,6 +158,7 @@ int main() {
 			} else {
 				next_state = waiting_for_image_data;
 			}
+		}
 			break;
 		case waiting_for_path_data:
 			printf("State: Waiting for path data\n");
@@ -167,7 +169,7 @@ int main() {
 			next_state = reading_path_data;
 
 			break;
-		case reading_path_data:
+		case reading_path_data: {
 			printf("State: Reading path data\n");
 
 			// The 2nd byte should contain the total number of bytes to read
@@ -184,7 +186,7 @@ int main() {
 			} else {
 				next_state = waiting_for_path_data;
 			}
-
+		}
 			break;
 		case drawing_image:
 			printf("State: Drawing image\n");

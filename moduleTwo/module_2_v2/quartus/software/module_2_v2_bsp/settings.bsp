@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Mar 19, 2015 10:45:43 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1426787143083</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 2, 2015 10:44:40 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1427996680236</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\Kyle\Dropbox\School\CPEN_Y3_T2\EECE381\Projects\module_2_v2\quartus\software\module_2_v2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\Kyle\Dropbox\School\CPEN_Y3_T2\EECE381\Projects\module_2_v2\quartus\nios_system.sopcinfo</SopcDesignFile>
@@ -899,32 +899,44 @@
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>pixel_buffer_dma</slaveDescriptor>
+                <slaveDescriptor>pi_request</slaveDescriptor>
                 <addressRange>0x000038A0 - 0x000038AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>LEDs</slaveDescriptor>
+                <slaveDescriptor>de2_state</slaveDescriptor>
                 <addressRange>0x000038B0 - 0x000038BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>keys</slaveDescriptor>
+                <slaveDescriptor>pixel_buffer_dma</slaveDescriptor>
                 <addressRange>0x000038C0 - 0x000038CF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>LEDs</slaveDescriptor>
+                <addressRange>0x000038D0 - 0x000038DF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>keys</slaveDescriptor>
+                <addressRange>0x000038E0 - 0x000038EF</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x000038D0 - 0x000038D7</addressRange>
+                <addressRange>0x000038F0 - 0x000038F7</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>character_lcd_0</slaveDescriptor>
-                <addressRange>0x000038D8 - 0x000038D9</addressRange>
+                <addressRange>0x000038F8 - 0x000038F9</addressRange>
                 <addressSpan>2</addressSpan>
                 <attributes/>
         </MemoryMap>
