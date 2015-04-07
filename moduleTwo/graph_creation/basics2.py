@@ -7,57 +7,16 @@ import os
 import math
 import RPi.GPIO as GPIO
 
-def dijkstra(graph,source,dest,visited=[],distances={},predecessors={}):
-    """ calculates a shortest path tree routed in source
-    """    
-    #make sure source and destination nodes are in the graph itself
-    if source not in graph:
-        raise TypeError('Source not on map')
-    if dest not in graph:
-        raise TypeError('Destination not on map')    
-
-    # ending condition
-    if source == dest:
-        # build the shortest path and display it
-        path=[]
-        pred=dest
-        while pred != None:
-            path.append(pred)
-            pred=predecessors.get(pred,None)
-        print('Shortest path: '+str(path)+" cost="+str(distances[dest])) 
-    else :     
-        # if initial run, initialize the cost
-        if not visited: 
-            distances[source]=0
-        # visit the neighbors
-        for neighbor in graph[source] :
-            if neighbor not in visited:
-                new_distance = distances[source] + graph[source][neighbor]
-                if new_distance < distances.get(neighbor,float('inf')):
-                    distances[neighbor] = new_distance
-                    predecessors[neighbor] = source
-        # mark as visited
-        visited.append(source)
-        # now that all neighbors have been visited: recurse                         
-        # select the non visited node with lowest distance 'x'
-        # run Dijskstra with source='x'
-        unvisited={}
-        for k in graph:
-            if k not in visited:
-                unvisited[k] = distances.get(k,float('inf'))        
-        x=min(unvisited, key=unvisited.get)
-        dijkstra(graph,x,dest,visited,distances,predecessors)
-
 if __name__ == "__main__":
     
 	#open webcame to take picture
-	##camera = Camera(160, 120)
+	#camera = Camera(160, 120)
 
 	#open a viewer window to display images
-	viewer = Viewer(819, 460, "The first step")
+	viewer = Viewer(819, 460, "The MAP")
 
 	#take picture from camera
-	##img = camera.grabImage()
+	#img = camera.grabImage()
 
 	#get image (bmp) from pathname (if no camera)
 	img = Image("/home/pi/Desktop/381map.bmp")
@@ -131,7 +90,10 @@ if __name__ == "__main__":
 	print("")
 	'''
 	print("Drawing shortest path...")
-	dijkstra(G,(0,0),(9,9))
+
+	L = list(nx.dijkstra_path(G,(0,0),(0,1)))
+	print(list)
+
 	print("")
 	print("Finished processing. Ready to transfer")
 	print("")
@@ -145,3 +107,13 @@ if __name__ == "__main__":
 	#waitTime(5000)
 
 	#end of script
+
+
+#remove graph and edge creation
+#priority queue for nodes
+#breadth firstt search
+#a-star search
+#check rgb values
+#place in prior queue
+# based on total calculated cost
+#pull shotest from priority and keep

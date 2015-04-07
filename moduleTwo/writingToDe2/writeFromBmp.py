@@ -127,8 +127,8 @@ try:
     #write 4092 bytes of data
     while counter < 1364: 
     
-        data = BitArray(bin='{0:08b}'.format(red))
-#       data = BitArray('0b00000000')
+#        data = BitArray(bin='{0:08b}'.format(red))
+       data = BitArray('0b00000000')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -138,8 +138,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-        data = BitArray(bin='{0:08b}'.format(green))
-#        data = BitArray('0b00001111')
+#        data = BitArray(bin='{0:08b}'.format(green))
+        data = BitArray('0b00001111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
@@ -149,8 +149,8 @@ try:
         GPIO.output(5,False)    
         adress += '0b01'
         
-        data = BitArray(bin='{0:08b}'.format(blue))
-#       data = BitArray('0b11111111')
+#        data = BitArray(bin='{0:08b}'.format(blue))
+        data = BitArray('0b11111111')
         toDatBus( data )
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1

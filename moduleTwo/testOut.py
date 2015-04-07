@@ -87,9 +87,12 @@ def toAdBus( ad ):
 try:
     #in total want to send 4096 bytes of data
     
-    #Fist byte iforms DE2 if another transfer will be needed
+    #First byte informs DE2 if another transfer will be needed
     #after the DE2 finshes reading the current data being input
     adress = BitArray('0b00000000')
+
+    #enable writing
+    GPIO.output(7, True)
     
     toDatBus( data )
     toAdBus( adress )
@@ -100,28 +103,39 @@ try:
     GPIO.output(5,False)   
 
  
-        
-    #second byte is length of     
-    adress = BitArray('0b00000001') 
-    data = BitArray('0b01010101')   
-    toDatBus( data )
-    toAdBus( adress )
-    GPIO.output(5,True) #write enable =1
-    GPIO.output(3,True) #fake clock high
-    time.sleep(.001)
-    GPIO.output(3,False)
-    GPIO.output(5,False) 
-    adress += '0b01'
+    while (1):     
+	    #second byte is length of     
+	    adress = BitArray('0b00000000') 
+	    data = BitArray('0b10101010')   
+	    toDatBus( data )
+	    toAdBus( adress )
+	    GPIO.output(5,True) #write enable =1
+	    GPIO.output(3,True) #fake clock high
+	    time.sleep(.001)
+	    GPIO.output(3,False)
+	    GPIO.output(5,False)
+            print "writing" 
+            adress = BitArray('0b00000000') 
+	    data = BitArray('0b01010101')   
+	    toDatBus( data )
+	    toAdBus( adress )
+	    GPIO.output(5,True) #write enable =1
+	    GPIO.output(3,True) #fake clock high
+	    time.sleep(.001)
+	    GPIO.output(3,False)
+	    GPIO.output(5,False)
+	    
     
-    print "wrote 10101010 to adress 0"
-    print "wrote 01010101 to adress 1"
        
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
-    print "Exits when counter is at: %d" % counter # print value of counter
+
+    # disable writing	
+    GPIO.output(7, False)
+    print "interupted"
+    
         
 finally:
-#    p.stop()                # stop the PWM output
     GPIO.cleanup() # this ensures a clean exit
