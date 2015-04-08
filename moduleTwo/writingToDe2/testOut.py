@@ -87,6 +87,14 @@ def toAdBus( ad ):
 	GPIO.output(8, ad[11])
 #	print "set AdBus to:", adress.bin
 	return
+def delay():
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
 
 try:
     #in total want to send 4096 bytes of data
@@ -111,12 +119,7 @@ try:
     print "starting writing"
 	
     GPIO.output(3,True) #fake clock high
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
+    delay()
     GPIO.output(3,False)
    
     #Fist byte iforms DE2 if another transfer will be needed
@@ -127,12 +130,7 @@ try:
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
+    delay()
     GPIO.output(3,False)
     GPIO.output(5,False) 
     print "adress was", adress.bin , "wrote", data.bin
@@ -146,12 +144,7 @@ try:
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
+    delay()
     GPIO.output(3,False)
     GPIO.output(5,False)
     print "adress was", adress.bin , "wrote", data.bin 
@@ -163,12 +156,7 @@ try:
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    pass
-    pass
-    pass
-    pass
-    pass
-    pass
+    delay()
     GPIO.output(3,False)
     GPIO.output(5,False) 
     print "adress was", adress.bin , "wrote", data.bin
@@ -187,12 +175,7 @@ try:
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
         GPIO.output(3,True) #fake clock high
-        pass
-	pass
-	pass
-	pass
-	pass
-	pass
+        delay()
         GPIO.output(3,False)
         GPIO.output(5,False)   
         counter += 1

@@ -87,6 +87,14 @@ def toAdBus( ad ):
 	GPIO.output(8, ad[11])
 #	print "set AdBus to:", adress.bin
 	return
+def delay():
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
 
 try:
     #in total want to send 4096 bytes of data
@@ -106,7 +114,7 @@ try:
     xMax = img.width
     yMax = img.height
     colour = 5
-    temp = 0
+    temp = 3
     
     print "starting writing"
 	

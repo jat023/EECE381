@@ -64,8 +64,7 @@ def toDatBus( dat ):
 	GPIO.output(23, dat[5]) 
 	GPIO.output(21, dat[6]) 
 	GPIO.output(19, dat[7])
-#	print "set DatBus to:", dat.bin
-	return
+
 
 def toAdBus( ad ):
 	#pin26 is most significant bit
@@ -81,35 +80,8 @@ def toAdBus( ad ):
 	GPIO.output(12, ad[9]) 
 	GPIO.output(10, ad[10]) 
 	GPIO.output(8, ad[11])
-#	print "set AdBus to:", adress.bin
-	return
 
-try:
-    # clock and write enable to 0 
-   
-    #in total want to send 4096 bytes of data
-    #send pi write request
-    
-   
-    counter = 0    
-    x = 0
-    y = 0
-    xMax = img.width
-    yMax = img.height
-    numPixel = xMax * yMax
-    t1,t2,t3,t4,t5,t6,t7,t8,t9,t10 =0
-   
-    red, green, blue = img[x, y]
-    x +=1
-    redLast, greenLast, blueLast = img[x, y]
-    print red, green, blue
-    
-   
-    #write 4093 bytes of data
-    while counter < numPixel: 
-
-	red, green, blue = img[x, y]
-	# sets data if white, dark green, medium green, or light green
+def setData( red, green, blue):
 	if( green > 225 ):
 
 		#sets datat if white	
@@ -187,6 +159,43 @@ try:
 
 		else:
 			print red, green, blue
+
+try:
+    # clock and write enable to 0 
+   
+    #in total want to send 4096 bytes of data
+    #send pi write request
+    
+   
+    counter = 0    
+    x = 0
+    y = 0
+    xMax = img.width
+    yMax = img.height
+    numPixel = xMax * yMax
+    t1=0
+    t2 =0
+    t3 =0
+    t4 =0
+    t5 =0
+    t6 =0
+    t7 =0
+    t8 =0
+    t9=0
+    t10 =0
+   
+    red, green, blue = img[x, y]
+    x +=1
+    redLast, greenLast, blueLast = img[x, y]
+    print red, green, blue
+    
+   
+    #write 4093 bytes of data
+    while counter < numPixel: 
+
+	red, green, blue = img[x, y]
+	# sets data if white, dark green, medium green, or light green
+	setData( red, green, blue)
 
 	
 	counter +=1

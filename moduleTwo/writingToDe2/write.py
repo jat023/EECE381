@@ -83,6 +83,15 @@ def toAdBus( ad ):
 #	print "set AdBus to:", adress.bin
 	return
 
+def delay():
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
+	pass
+
 print "starting try block"
 
 try:
@@ -98,28 +107,64 @@ try:
     y = 0
     xMax = img.width
     yMax = img.height
+    print img.width, img.height
     numPixel = xMax * yMax
     pixCount = 0
     done = 0
-
+    GPIO.output(7, True)
     print "completed initialization"
    
     while( done == 0): 
-	GPIO.output(7, True)
+	
 	counter = 0
 
 	GPIO.output(3,True) #fake clock high
-	pass
-	pass
-	pass
-	pass
-	pass
-	pass
+	delay()
 	GPIO.output(3,False)
 	
 	print (pixCount + 4093), "vs", numPixel
     	if((pixCount + 4093) < numPixel):
 
+
+	    #Fist byte iforms DE2 if another transfer will be needed
+	    #after the DE2 finshes reading the current data being input
+	    adress = BitArray(bin='{0:012b}'.format(counter))
+	    data = BitArray('0b00000001') # has more data to send after this
+	    toDatBus( data )
+	    toAdBus( adress )
+	    GPIO.output(5,True) #write enable =1
+	    GPIO.output(3,True) #fake clock high
+	    delay()
+	    GPIO.output(3,False)
+	    GPIO.output(5,False) 
+	    counter += 1
+
+		
+	    #second + third byte is # of bytes sending (normally 4093)    
+	    adress = BitArray(bin='{0:012b}'.format(counter)) 
+	    data = BitArray('0b00001111')
+	    toDatBus( data )
+	    toAdBus( adress )
+	    GPIO.output(5,True) #write enable =1
+	    GPIO.output(3,True) #fake clock high
+	    delay()
+	    GPIO.output(3,False)
+	    GPIO.output(5,False)
+	    counter += 1
+
+	    adress = BitArray(bin='{0:012b}'.format(counter)) 
+	    data = BitArray('0b11111101')
+	    toDatBus( data )
+	    toAdBus( adress )
+	    GPIO.output(5,True) #write enable =1
+	    GPIO.output(3,True) #fake clock high
+	    delay()
+	    GPIO.output(3,False)
+	    GPIO.output(5,False) 
+	    counter += 1
+	else:
+	    #last chunck of data
+	    done =1
 
 	    #Fist byte iforms DE2 if another transfer will be needed
 	    #after the DE2 finshes reading the current data being input
@@ -137,59 +182,7 @@ try:
 	    pass
 	    GPIO.output(3,False)
 	    GPIO.output(5,False) 
-
-		
-	    #second + third byte is # of bytes sending (normally 4093)    
-	    adress = BitArray(bin='{0:012b}'.format(counter)) 
-	    data = BitArray('0b00001111')
-	    toDatBus( data )
-	    toAdBus( adress )
-	    GPIO.output(5,True) #write enable =1
-	    GPIO.output(3,True) #fake clock high
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    GPIO.output(3,False)
-	    GPIO.output(5,False) 
-	    counter += 1
-
-	    adress = BitArray(bin='{0:012b}'.format(counter)) 
-	    data = BitArray('0b11111101')
-	    toDatBus( data )
-	    toAdBus( adress )
-	    GPIO.output(5,True) #write enable =1
-	    GPIO.output(3,True) #fake clock high
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    GPIO.output(3,False)
-	    GPIO.output(5,False) 
-	    counter += 1
-	else:
-	    done =1
-
-	    #Fist byte iforms DE2 if another transfer will be needed
-	    #after the DE2 finshes reading the current data being input
-	    adress = BitArray(bin='{0:012b}'.format(counter))
-	    data = BitArray('0b00000001') # has more data to send after this
-	    toDatBus( data )
-	    toAdBus( adress )
-	    GPIO.output(5,True) #write enable =1
-	    GPIO.output(3,True) #fake clock high
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    GPIO.output(3,False)
-	    GPIO.output(5,False) 
+	    print "last section data: sent", data.bin , "to", adress.bin
 
 		
 	    numLeft = BitArray(bin='{0:016b}'.format(numPixel - pixCount))
@@ -237,7 +230,7 @@ try:
 	while counter < 4096: 
 
 		red, green, blue = img[x, y]
-		data = BitArray('0b00000000')
+		
 
 		# sets data if white, dark green, medium green, or light green
 		if( green > 225 ):
@@ -245,10 +238,6 @@ try:
 			#sets datat if white	
 			if (red > 225  and blue > 225):
 				data = BitArray('0b00000001')
-
-			# sets data if (dark green) 
-			elif (red < 100  and blue < 60):
-				data = BitArray('0b00000010')
 
 			# sets data if (medium green)
 			elif (red < 170 and  blue < 145):
@@ -282,10 +271,17 @@ try:
 			elif (red > 205 and blue > 40 ):
 				data = BitArray('0b00000101')
 
+			
 			# sets data if olive green
-			else :
+			elif (red > 80 and blue < 41):
 				data = BitArray('0b00000111')
+			
+			# sets data if (dark green) 
+			elif( red < 81 and blue <100) :
+				data = BitArray('0b00000010')
 
+			else:
+				data = BitArray('0b00000000')
 
 
 		adress = BitArray(bin='{0:012b}'.format(counter))
@@ -304,7 +300,7 @@ try:
 		counter += 1
 		pixCount +=1    	
 
-		if ( x < xMax ):
+		if ( x <= (xMax-1) ):
 		    x+=1
 		else:
 		    x=0
@@ -317,14 +313,16 @@ try:
 		break
 	else:
 		GPIO.output(7, False)
+		time.sleep(.001)
+		GPIO.output(7, True)
 		print "another loop: drawn %d pixels" % pixCount
 	
-	print "waiting till DE2 has read data"
+	
     #input dropping to 0 will signal DE2 ready for new data
 	while (GPIO.input(11)):
 		pass
 	
-	print "the De2 is done writing"
+	
 
     print "done writing- hope it worked"
    

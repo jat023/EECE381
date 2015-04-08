@@ -97,7 +97,16 @@ try:
     xMax = img.width
     yMax = img.height
     numPixel = xMax * yMax
-    t1,t2,t3,t4,t5,t6,t7,t8,t9,t10 =0
+    t1=0
+    t2 =0
+    t3 =0
+    t4 =0
+    t5 =0
+    t6 =0
+    t7 =0
+    t8 =0
+    t9=0
+    t10 =0
    
     red, green, blue = img[x, y]
     x +=1
