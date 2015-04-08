@@ -50,13 +50,9 @@ GPIO.setup(12, GPIO.OUT)
 GPIO.setup(10, GPIO.OUT) 
 GPIO.setup(8, GPIO.OUT)  
 
-
-
-# clock and write enable to 0 
 GPIO.output(3, False)
 GPIO.output(5, False)
-GPIO.output(7, False) 
- 
+GPIO.output(7, False) #request
 
 def toDatBus( dat ):
 	#pin37 is most significant bit
@@ -89,40 +85,132 @@ def toAdBus( ad ):
 	return
 
 try:
+    # clock and write enable to 0 
+   
     #in total want to send 4096 bytes of data
-    
-    #Fist byte iforms DE2 if another transfer will be needed
-    #after the DE2 finshes reading the current data being input
-    
-    data = BitArray('0b00000000')
-    adress = BitArray('0b000000000000')
     #send pi write request
+    
     GPIO.output(7, True)
-    
-    
+
     counter = 0    
     x = 0
     y = 0
     xMax = img.width
     yMax = img.height
-    colour = 5
-    temp = 0
-    
-    print "starting writing"
-	
+
+   
+
     GPIO.output(3,True) #fake clock high
     time.sleep(.001)
     GPIO.output(3,False)
-   
 
-    #use this to set up the info you want to transfer
-    #write 4092 bytes of data
+    #Fist byte iforms DE2 if another transfer will be needed
+    #after the DE2 finshes reading the current data being input
+    adress = BitArray(bin='{0:012b}'.format(counter))
+    data = BitArray('0b00000000') # has more data to send after this
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+
+        
+    #second + third byte is # of bytes sending (normally 4093)    
+    adress = BitArray(bin='{0:012b}'.format(counter)) 
+    data = BitArray('0b00001111')
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+    counter += 1
+
+    adress = BitArray(bin='{0:012b}'.format(counter)) 
+    data = BitArray('0b11111101')
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+    counter += 1
+    
+   
+    #write 4093 bytes of data
     while counter < 4096: 
 
-        red, green, blue = img[x, y]
+	red, green, blue = img[x, y]
+	data = BitArray('0b00000000')
+
+	# sets data if white, dark green, medium green, or light green
+	if( green > 200 ):
 	
+		#sets datat if white	
+		if (red > 225  and blue > 225):
+		        data = BitArray('0b00000001')
+
+		# sets data if (dark green) 
+		elif (red < 100  and blue < 60):
+		        data = BitArray('0b00000010')
+
+		# sets data if (medium green)
+		elif (red < 170 and  blue < 145):
+			data = BitArray('0b00000011')
+
+		# sets data to (light green)
+		else:
+			data = BitArray('0b00000100')
+
+	#set if purple, black or brown
+	elif( green < 140 ):
+		# sets data if purple
+		if (red > 225 and blue > 225):
+			data = BitArray('0b00000111')
+
+		# sets data if black
+		elif (red < 50 and blue < 50):
+			data = BitArray('0b00000110')
+
+		#must be brown
+		else :
+			data = BitArray('0b00001010')		
+
+	#sets if  blue, olive green or yellow
+	else :
+		# sets data if blue
+		if ( blue > 200):
+			data = BitArray('0b00001000')
+
+		# sets data if yellow
+		elif (red > 205 and blue > 40 ):
+			data = BitArray('0b00000101')
+
+		# sets data if olive green
+		else :
+			data = BitArray('0b00001001')
+
     
-        data = BitArray(bin='{0:08b}'.format(colour))
+
 	adress = BitArray(bin='{0:012b}'.format(counter))
         toDatBus( data )
         toAdBus( adress )
@@ -135,24 +223,24 @@ try:
 	pass
 	pass
         GPIO.output(3,False)
-        GPIO.output(5,False)   
-        counter += 1
-	temp +=1
+        GPIO.output(5,False)
+	counter += 1    	
+        
+        if ( x < xMax ):
+            x+=1
+        else:
+            x=0
+            y+=1
 
-	if(temp > 319):
-		temp =0
-		print "drew line of %d" % colour 
-		colour +=1
-	if(colour >10):
-		colour = 1
-	
-       
+        print "adress was", adress.bin , "wrote", data.bin
+        
 
     print "done writing- hope it worked"
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
+    GPIO.output(7, False)
     print "Interupted when counter is at: %d" % counter # print value of counter
         
 finally:

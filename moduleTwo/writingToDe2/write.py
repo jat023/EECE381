@@ -7,7 +7,7 @@ import imgproc
 from imgproc import *
 # Set the mode to use physical numbering the pins.
 
-img = Image("/home/pi/Desktop/381map.bmp")
+img = Image("/home/pi/Desktop/381_colours.bmp")
  
 print "Started code"
 

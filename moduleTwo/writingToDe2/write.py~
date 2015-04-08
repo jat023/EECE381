@@ -9,6 +9,7 @@ from imgproc import *
 
 img = Image("/home/pi/Desktop/381map.bmp")
  
+print "Started code"
 
 GPIO.setmode(GPIO.BOARD) 
 
