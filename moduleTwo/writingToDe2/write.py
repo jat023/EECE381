@@ -13,10 +13,8 @@ print "Started code"
 
 GPIO.setmode(GPIO.BOARD) 
 
-#pins 11,13,15 are the state sent from the DE2
+#pins 11 is the state sent from the DE2
 GPIO.setup(11, GPIO.IN)
-GPIO.setup(13, GPIO.IN)
-GPIO.setup(15, GPIO.IN) 
 
 # pin 7 is the Pi write Request 
 GPIO.setup(7, GPIO.OUT)              
@@ -321,19 +319,11 @@ try:
 		GPIO.output(7, False)
 		print "another loop: drawn %d pixels" % pixCount
 	
+	print "waiting till DE2 has read data"
+    #input dropping to 0 will signal DE2 ready for new data
+	while (GPIO.input(11)):
+		pass
 	
-	while (1):
-		#want 010
-		in1 = !GPIO.input(11)
-		in2 = GPIO.input(13)
-		in3 = !GPIO.input(15)
-		if( in1 and in2 and in3):
-			print "got signal from De2"
-			break
-		
-	
-	
-
 	print "the De2 is done writing"
 
     print "done writing- hope it worked"
