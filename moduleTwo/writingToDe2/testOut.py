@@ -7,7 +7,7 @@ import imgproc
 from imgproc import *
 # Set the mode to use physical numbering the pins.
 
-img = Image("/home/pi/Desktop/381_colours.bmp")
+img = Image("/home/pi/Desktop/381map.bmp")
  
 
 GPIO.setmode(GPIO.BOARD) 
@@ -50,9 +50,13 @@ GPIO.setup(12, GPIO.OUT)
 GPIO.setup(10, GPIO.OUT) 
 GPIO.setup(8, GPIO.OUT)  
 
+
+
+# clock and write enable to 0 
 GPIO.output(3, False)
 GPIO.output(5, False)
-GPIO.output(7, False) #request
+GPIO.output(7, False) 
+ 
 
 def toDatBus( dat ):
 	#pin37 is most significant bit
@@ -85,47 +89,70 @@ def toAdBus( ad ):
 	return
 
 try:
-    # clock and write enable to 0 
-   
     #in total want to send 4096 bytes of data
-    #send pi write request
     
+    #Fist byte iforms DE2 if another transfer will be needed
+    #after the DE2 finshes reading the current data being input
+    
+    data = BitArray('0b00000000')
+    adress = BitArray('0b000000000000')
+    #send pi write request
     GPIO.output(7, True)
-
+    
+    
     counter = 0    
     x = 0
     y = 0
     xMax = img.width
     yMax = img.height
-
-   
-
-
+    colour = 5
+    temp = 0
     
+    print "starting writing"
+	
+    GPIO.output(3,True) #fake clock high
+    time.sleep(.001)
+    GPIO.output(3,False)
    
-    #write 4093 bytes of data
+
+    #use this to set up the info you want to transfer
+    #write 4092 bytes of data
     while counter < 4096: 
 
-	red, green, blue = img[x, y]
-	data = BitArray('0b00000000')
+        red, green, blue = img[x, y]
 	
-	print red, green, blue
+    
+        data = BitArray(bin='{0:08b}'.format(colour))
+	adress = BitArray(bin='{0:012b}'.format(counter))
+        toDatBus( data )
+        toAdBus( adress )
+        GPIO.output(5,True) #write enable =1
+        GPIO.output(3,True) #fake clock high
+        pass
+	pass
+	pass
+	pass
+	pass
+	pass
+        GPIO.output(3,False)
+        GPIO.output(5,False)   
+        counter += 1
+	temp +=1
 
+	if(temp > 319):
+		temp =0
+		print "drew line of %d" % colour 
+		colour +=1
+	if(colour >10):
+		colour = 1
 	
-	if ( x < xMax ):
-            x+=1
-        else:
-            x=0
-            y+=1
-
-        
+       
 
     print "done writing- hope it worked"
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
-    GPIO.output(7, False)
     print "Interupted when counter is at: %d" % counter # print value of counter
         
 finally:
