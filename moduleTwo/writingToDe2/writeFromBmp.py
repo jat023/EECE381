@@ -26,10 +26,6 @@ GPIO.setup(3,GPIO.OUT)
 #pin 5 is the write enable
 GPIO.setup(5, GPIO.OUT) 
 
-GPIO.output(3, False)
-GPIO.output(5, False)
-GPIO.output(7, False) #request
-
 #data bus
 GPIO.setup(19, GPIO.OUT) 
 GPIO.setup(21, GPIO.OUT) 
@@ -54,7 +50,9 @@ GPIO.setup(12, GPIO.OUT)
 GPIO.setup(10, GPIO.OUT) 
 GPIO.setup(8, GPIO.OUT)  
 
-
+GPIO.output(3, False)
+GPIO.output(5, False)
+GPIO.output(7, False) #request
 
 def toDatBus( dat ):
 	#pin37 is most significant bit
@@ -109,12 +107,17 @@ try:
     #Fist byte iforms DE2 if another transfer will be needed
     #after the DE2 finshes reading the current data being input
     adress = BitArray(bin='{0:012b}'.format(counter))
-    data = BitArray('0b00000001') # has more data to send after this
+    data = BitArray('0b00000000') # has more data to send after this
     toDatBus( data )
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    time.sleep(.001)
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
     GPIO.output(3,False)
     GPIO.output(5,False) 
 
@@ -126,7 +129,12 @@ try:
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    time.sleep(.001)
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
     GPIO.output(3,False)
     GPIO.output(5,False) 
     counter += 1
@@ -137,20 +145,25 @@ try:
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
     GPIO.output(3,True) #fake clock high
-    time.sleep(.001)
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
     GPIO.output(3,False)
     GPIO.output(5,False) 
     counter += 1
     
    
     #write 4093 bytes of data
-    while counter < 4096: 
+    while counter < 322: 
 
 	red, green, blue = img[x, y]
 	data = BitArray('0b00000000')
 
 	# sets data if white, dark green, medium green, or light green
-	if( green > 225 ):
+	if( green > 200 ):
 	
 		#sets datat if white	
 		if (red > 225  and blue > 225):
@@ -176,17 +189,17 @@ try:
 
 		# sets data if black
 		elif (red < 50 and blue < 50):
-			data = BitArray('0b00001010')
+			data = BitArray('0b00000110')
 
 		#must be brown
 		else :
-			data = BitArray('0b00000110')		
+			data = BitArray('0b00001010')		
 
 	#sets if  blue, olive green or yellow
 	else :
 		# sets data if blue
 		if ( blue > 200):
-			data = BitArray('0b00000111')
+			data = BitArray('0b00001000')
 
 		# sets data if yellow
 		elif (red > 205 and blue > 40 ):
@@ -194,7 +207,7 @@ try:
 
 		# sets data if olive green
 		else :
-			data = BitArray('0b00000111')
+			data = BitArray('0b00001001')
 
     
 
@@ -203,7 +216,12 @@ try:
         toAdBus( adress )
         GPIO.output(5,True) #write enable =1
         GPIO.output(3,True) #fake clock high
-        time.sleep(.001)
+        pass
+	pass
+	pass
+	pass
+	pass
+	pass
         GPIO.output(3,False)
         GPIO.output(5,False)
 	counter += 1    	

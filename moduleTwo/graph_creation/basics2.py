@@ -7,43 +7,42 @@ import os
 import math
 import RPi.GPIO as GPIO
 
-if __name__ == "__main__":
-    
-	#open webcame to take picture
-	#camera = Camera(160, 120)
+#speeds through terrain
+dgSpeed = 0.15
+mgSpeed = 0.40
+lgSpeed = 0.70
+yellowSpeed = 0.90
+whiteSpeed = 0.95
 
-	#open a viewer window to display images
-	viewer = Viewer(819, 460, "The MAP")
 
-	#take picture from camera
-	#img = camera.grabImage()
+#Dijkstra's algorithm as implemented by NetworkX
+def shortest_path(G, start, end):
+	
+		#shortest path using dijkstra's algorithm
+		#the result of the function is stored in the variable 'list'
+		#	this list can act as a queue or stack, using functions such as
+		#	pop() to get coordinates to send to DE2	
+	list = nx.dijkstra_path(G,start,end,weight='weight')
+	
+	print list
+	print("")
+	print("Path length is:")
+	print(nx.dijkstra_path_length(G,start,end,weight='weight'))
 
-	#get image (bmp) from pathname (if no camera)
-	img = Image("/home/pi/Desktop/381map.bmp")
 
-	#display image in viewer
-	viewer.displayImage(img)
-
-	#speeds through terrain; simple five colors used for testing purposes
-	#may need to be modified later
-	dgSpeed = 0.15
-	mgSpeed = 0.40
-	lgSpeed = 0.70
-	yellowSpeed = 0.90
-	whiteSpeed = 0.95
-
-		#creates graph by adding all the nodes, one for each pixel
-	print("Creating graph. Give me a minute ...")
-	G = nx.Graph()
-	for x in range (0, 10):
-		for y in range(0, 10):
+#creates graph by adding all the nodes, one for each pixel
+def create_nodes_of_Graph(G):
+	for x in range (0, 320):
+		for y in range(0, 240):
 			G.add_node((x,y))
 
-	print "Number of nodes: ", G.number_of_nodes()
+	return G
 
-		#add edges and their respective speeds between nodes
-	for y in range (1, 10):
-		for x in range(1, 10):
+
+#add edges and their respective speeds between nodes
+def create_edges_of_Graph(G, img):
+	for y in range (1, 320):
+		for x in range(1, 240):
 			#get RGB color value of the current node
 			red, green, blue = img[x,y]
 		
@@ -63,7 +62,7 @@ if __name__ == "__main__":
 			elif (red > 215 and green > 215 and blue < 10):
 				weight = yellowSpeed
 
-			if (x == 10):
+			if (x == 0):
 				G.add_edge((x,y),(x-1,y), weight = weight)
 				G.add_edge( (x,y),(x-1,y-1),weight = weight)
 				G.add_edge((x,y),(x,y-1), weight = weight)
@@ -73,31 +72,48 @@ if __name__ == "__main__":
 				G.add_edge((x,y),(x,y-1), weight = weight)
 				G.add_edge((x,y),(x+1,y+1), weight = weight)
 
+	return G
+
+#main function controlling logic flow
+if __name__ == "__main__":
+    
+	#open webcame to take picture
+	#camera = Camera(160, 120)
+
+	#open a viewer window to display images
+	viewer = Viewer(819, 460, "The MAP")
+
+	#take picture from camera
+	#img = camera.grabImage()
+
+	#get image (bmp) from pathname (if no camera)
+	img = Image("/home/pi/Desktop/381map.bmp")
+
+	#display image in viewer
+	viewer.displayImage(img)
+
+	print("Creating graph. Give me a minute ...")
+	print("")
+	G = nx.Graph()
+	G = create_nodes_of_Graph(G)
+	print "Number of nodes: ", G.number_of_nodes()
+	G = create_edges_of_Graph(G, img)
 	print "Number of edges: ", G.number_of_edges()
 	print("Done creating graph")
-
 	print("")
-	'''
-	print("Drawing graph")
-	pos = nx.spring_layout(G)
-	elarge=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] > 0.1]
-	esmall=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] < 0.1]
-
-	nx.draw_networkx_nodes(G,pos, node_size=700)
-	nx.draw_networkx_edges(G,pos, edgelist=elarge,width=6,style='dashed')
-	nx.draw_networkx_edges(G,pos, edgelist=esmall,width=3)
-	plt.show()
-	print("")
-	'''
 	print("Drawing shortest path...")
 
-	L = list(nx.dijkstra_path(G,(0,0),(0,1)))
-	print(list)
+		#these points currently arbitrariliy assigned; should be able to be
+		#set by user when GUI is in place
+	start = (0,0)
+	end = (75,189)
+
+	#call to the shortest_path function, uses Dijkstra's Algorithm
+	shortest_path(G, start, end)
 
 	print("")
 	print("Finished processing. Ready to transfer")
 	print("")
-
 
 	#display the image again
 	viewer.displayImage(img)
@@ -107,13 +123,3 @@ if __name__ == "__main__":
 	#waitTime(5000)
 
 	#end of script
-
-
-#remove graph and edge creation
-#priority queue for nodes
-#breadth firstt search
-#a-star search
-#check rgb values
-#place in prior queue
-# based on total calculated cost
-#pull shotest from priority and keep
