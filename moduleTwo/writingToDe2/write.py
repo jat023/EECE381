@@ -93,7 +93,7 @@ try:
     #in total want to send 4096 bytes of data
     #send pi write request
     
-    GPIO.output(7, True)
+    
 
         
     x = 0
@@ -107,7 +107,7 @@ try:
     print "completed initialization"
    
     while( done == 0): 
-	
+	GPIO.output(7, True)
 	counter = 0
 
 	GPIO.output(3,True) #fake clock high
@@ -196,9 +196,9 @@ try:
 		
 	    numLeft = BitArray(bin='{0:016b}'.format(numPixel - pixCount))
 	    print "num left is", numLeft.bin
-	    mostSig = numLeft[0:7]
+	    mostSig = numLeft[0:8]
 	    print "first 8 bits are", mostSig.bin
-	    leastSig = numLeft[8:15]
+	    leastSig = numLeft[8:16]
 	    print "last 8 bits are", leastSig.bin
 
 	    #second + third byte is # of bytes sending (normally 4093)    
@@ -304,7 +304,7 @@ try:
 		GPIO.output(3,False)
 		GPIO.output(5,False)
 		counter += 1
-		pixCounter +=1    	
+		pixCount +=1    	
 
 		if ( x < xMax ):
 		    x+=1
@@ -316,17 +316,34 @@ try:
 	if(done == 1):
 		GPIO.output(7, False)
 		print "done drawing picture"
+		break
 	else:
-		print "another loop: drawn %d pixels", pixCounter
+		GPIO.output(7, False)
+		print "another loop: drawn %d pixels" % pixCount
+	
+	
+	while (1):
+		#want 010
+		in1 = !GPIO.input(11)
+		in2 = GPIO.input(13)
+		in3 = !GPIO.input(15)
+		if( in1 and in2 and in3):
+			print "got signal from De2"
+			break
+		
+	
+	
 
+	print "the De2 is done writing"
 
     print "done writing- hope it worked"
+   
         
 except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
     GPIO.output(7, False)
-    print "Interupted when counter is at: %d" % counter # print value of counter
+    print "Interupted -> Exiting..." % counter # print value of counter
         
 finally:
     GPIO.output(7, False)

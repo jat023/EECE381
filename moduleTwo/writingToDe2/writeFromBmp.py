@@ -126,7 +126,7 @@ except KeyboardInterrupt:
     # here you put any code you want to run before the program 
     # exits when you press CTRL+C
     GPIO.output(7, False)
-    print "Interupted when counter is at: %d" % counter # print value of counter
+    print "Interupted. Exiting now"
         
 finally:
     GPIO.output(7, False)

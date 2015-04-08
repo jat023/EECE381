@@ -7,7 +7,7 @@ import imgproc
 from imgproc import *
 # Set the mode to use physical numbering the pins.
 
-img = Image("/home/pi/Desktop/381map.bmp")
+img = Image("/home/pi/Desktop/381_colours.bmp")
  
 
 GPIO.setmode(GPIO.BOARD) 
@@ -111,9 +111,68 @@ try:
     print "starting writing"
 	
     GPIO.output(3,True) #fake clock high
-    time.sleep(.001)
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
     GPIO.output(3,False)
    
+    #Fist byte iforms DE2 if another transfer will be needed
+    #after the DE2 finshes reading the current data being input
+    adress = BitArray(bin='{0:012b}'.format(counter))
+    data = BitArray('0b00000000') # has more data to send after this
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+    print "adress was", adress.bin , "wrote", data.bin
+    counter += 1
+
+        
+    #second + third byte is # of bytes sending (normally 4093)    
+    adress = BitArray(bin='{0:012b}'.format(counter)) 
+    data = BitArray('0b00001111')
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False)
+    print "adress was", adress.bin , "wrote", data.bin 
+    counter += 1
+
+    adress = BitArray(bin='{0:012b}'.format(counter)) 
+    data = BitArray('0b11111101')
+    toDatBus( data )
+    toAdBus( adress )
+    GPIO.output(5,True) #write enable =1
+    GPIO.output(3,True) #fake clock high
+    pass
+    pass
+    pass
+    pass
+    pass
+    pass
+    GPIO.output(3,False)
+    GPIO.output(5,False) 
+    print "adress was", adress.bin , "wrote", data.bin
+    counter += 1
 
     #use this to set up the info you want to transfer
     #write 4092 bytes of data
