@@ -175,11 +175,7 @@ try:
 	    GPIO.output(5,True) #write enable =1
 	    GPIO.output(3,True) #fake clock high
 	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
+	   
 	    GPIO.output(3,False)
 	    GPIO.output(5,False) 
 	    print "last section data: sent", data.bin , "to", adress.bin
@@ -200,11 +196,7 @@ try:
 	    GPIO.output(5,True) #write enable =1
 	    GPIO.output(3,True) #fake clock high
 	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
+	   
 	    GPIO.output(3,False)
 	    GPIO.output(5,False) 
 	    counter += 1
@@ -216,11 +208,7 @@ try:
 	    GPIO.output(5,True) #write enable =1
 	    GPIO.output(3,True) #fake clock high
 	    pass
-	    pass
-	    pass
-	    pass
-	    pass
-	    pass
+	   
 	    GPIO.output(3,False)
 	    GPIO.output(5,False) 
 	    counter += 1
@@ -290,11 +278,7 @@ try:
 		GPIO.output(5,True) #write enable =1
 		GPIO.output(3,True) #fake clock high
 		pass
-		pass
-		pass
-		pass
-		pass
-		pass
+		
 		GPIO.output(3,False)
 		GPIO.output(5,False)
 		counter += 1

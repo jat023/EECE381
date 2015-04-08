@@ -89,12 +89,9 @@ def toAdBus( ad ):
 	return
 def delay():
 	pass
-	pass
-	pass
-	pass
-	pass
-	pass
-	pass
+#	pass
+#	pass
+	
 
 try:
     #in total want to send 4096 bytes of data
@@ -183,10 +180,9 @@ try:
 
 	if(temp > 319):
 		temp =0
-		print "drew line of %d" % colour 
-		colour +=1
-	if(colour >10):
-		colour = 1
+		if(counter+320 > 4096):
+			colour =8
+	
 	
        
 

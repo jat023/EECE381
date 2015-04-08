@@ -104,16 +104,14 @@ try:
     pixCount = 0
     done = 0
     colour = 1
+    temp = 0
     GPIO.output(7, True)
     print "completed initialization"
    
     while( done == 0): 
 	
 	counter = 0
-	if(colour < 10):
-		colour +=1
-	else:
-		colour =1
+	
 
 	GPIO.output(7, True)
 
@@ -226,8 +224,13 @@ try:
 		GPIO.output(3,False)
 		GPIO.output(5,False)
 		counter += 1
-		pixCount +=1    	
-
+		pixCount +=1 
+		temp +=1
+#		if( temp    	
+		if(colour < 10):
+			colour +=1
+		else:
+			colour =1
 		#print "adress was", adress.bin , "wrote", data.bin
 
 	if(done == 1):

@@ -317,12 +317,12 @@ try:
 		GPIO.output(7, True)
 		print "another loop: drawn %d pixels" % pixCount
 	
-	print "waiting till DE2 has read data"
+	
     #input dropping to 0 will signal DE2 ready for new data
 	while (GPIO.input(11)):
 		pass
 	
-	print "the De2 is done writing"
+	
 
     print "done writing- hope it worked"
    
