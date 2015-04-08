@@ -111,7 +111,7 @@ try:
 	
 	print red, green, blue
 
-	
+	counter +=1
 	if ( x < xMax ):
             x+=1
         else:
