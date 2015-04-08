@@ -122,7 +122,7 @@ try:
     #Fist byte iforms DE2 if another transfer will be needed
     #after the DE2 finshes reading the current data being input
     adress = BitArray(bin='{0:012b}'.format(counter))
-    data = BitArray('0b00000000') # has more data to send after this
+    data = BitArray('0b00001100') # has more data to send after this
     toDatBus( data )
     toAdBus( adress )
     GPIO.output(5,True) #write enable =1
@@ -181,7 +181,7 @@ try:
 	if(temp > 319):
 		temp =0
 		if(counter+320 > 4096):
-			colour +=1
+			colour =8
 	
 	
        

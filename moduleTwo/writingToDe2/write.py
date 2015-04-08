@@ -130,6 +130,7 @@ try:
 	    #after the DE2 finshes reading the current data being input
 	    adress = BitArray(bin='{0:012b}'.format(counter))
 	    data = BitArray('0b00000001') # has more data to send after this
+	    print "more data: sent", data.bin , "to", adress.bin
 	    toDatBus( data )
 	    toAdBus( adress )
 	    GPIO.output(5,True) #write enable =1
@@ -168,8 +169,8 @@ try:
 
 	    #Fist byte iforms DE2 if another transfer will be needed
 	    #after the DE2 finshes reading the current data being input
+	    data = BitArray('0b00001100') # has more data to send after this
 	    adress = BitArray(bin='{0:012b}'.format(counter))
-	    data = BitArray('0b00000000') # has more data to send after this
 	    toDatBus( data )
 	    toAdBus( adress )
 	    GPIO.output(5,True) #write enable =1
@@ -243,7 +244,7 @@ try:
 
 			# sets data if black
 			elif (red < 50 and blue < 50):
-				data = BitArray('0b00001010')
+				data = BitArray('0b00000110')
 
 			#must be brown
 			else :
@@ -253,7 +254,7 @@ try:
 		else :
 			# sets data if blue
 			if ( blue > 200):
-				data = BitArray('0b00000111')
+				data = BitArray('0b00001000')
 
 			# sets data if yellow
 			elif (red > 205 and blue > 40 ):
@@ -262,7 +263,7 @@ try:
 			
 			# sets data if olive green
 			elif (red > 80 and blue < 41):
-				data = BitArray('0b00000111')
+				data = BitArray('0b00001001')
 			
 			# sets data if (dark green) 
 			elif( red < 81 and blue <100) :
@@ -284,7 +285,7 @@ try:
 		counter += 1
 		pixCount +=1    	
 
-		if ( x <= (xMax-1) ):
+		if ( x < (xMax-1) ):
 		    x+=1
 		else:
 		    x=0
