@@ -65,19 +65,25 @@ def toAdBus( ad ):
 	GPIO.output(10, ad[10]) 
 	GPIO.output(8, ad[11])
 
-#write 4096 bytes to the DE2 each cycle until full map is sent
-def writeToDe2():
+
+def sendPath(listDots):
+	path = listDots
+
+	length = len(path)
+	print "length is:", length
+
+	coordinate1 = list.pop()
+	coordinate2 = list.pop()
+	coordinate3 = list.pop()
+	print coordinate, coordinate2, coordinate3
+
 	GPIO.output(3, False) #clock and write enable to 0
 	GPIO.output(5, False)
 	GPIO.output(7, False) #pi request bit from Pi GPIO
 	        
-	x = 0
-	y = 0
-	xMax = img.width
-	yMax = img.height
-	print img.width, img.height
-	numPixel = xMax * yMax
-	pixCount = 0
+	
+
+def temp():
 	done = 0
 	GPIO.output(7, True)
 	print "Initialization complete."

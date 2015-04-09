@@ -65,20 +65,66 @@ def toAdBus( ad ):
 	GPIO.output(10, ad[10]) 
 	GPIO.output(8, ad[11])
 
-#write 4096 bytes to the DE2 each cycle until full map is sent
-def writeToDe2():
+
+def sendPath(listDots):
+	path = listDots
+
+	length = len(path)
+	print "length is:", length
+
+	for x in path: 
+		print x
+
+	coordinate1 = list(path.pop())
+	x1 = coordinate1[0]
+	y1 = coordinate1[1]
+	coordinate2 = list(path.pop())
+	x2 = coordinate2[0]
+	y2 = coordinate2[1]
+	print coordinate1 - coordinate2
+	test = [x1 -x2, y1-y2]
+	print test
+	# send above coordinate regardless (its the starting point)
+	
+	
+	
+
+def temp():
+
+	#while the path list is NOT empty
+	while path:
+		#get next coordinate
+		tempCoordinate = list(path.pop())
+		xcoordinate = tempCoordinate[0]
+		ycoordinate = tempCoordinate[1]
+
+		#check if x and y are equal
+		if (xcoordinate != ycoordinate):
+			pass
+			#send the current coordinates
+		else:
+			nextCoordinate = list(path.pop())
+			xNext = nextCoordinate[0]
+			yNext = nextCoordinate[1]
+	        
+
+	numLeft = BitArray(bin='{0:016b}'.format(coordinate1[0]))
+	numRight = BitArray(bin='{0:08b}'.format(coordinate1[1]))
+	print "num left is", numLeft.bin
+	mostSig = numLeft[0:8]
+	print "first 8 bits are", mostSig.bin
+	leastSig = numLeft[8:16]
+	print "last 8 bits are", leastSig.bin
+
+
+
+######
+
 	GPIO.output(3, False) #clock and write enable to 0
 	GPIO.output(5, False)
 	GPIO.output(7, False) #pi request bit from Pi GPIO
-	        
-	x = 0
-	y = 0
-	xMax = img.width
-	yMax = img.height
-	print img.width, img.height
-	numPixel = xMax * yMax
-	pixCount = 0
 	done = 0
+
 	GPIO.output(7, True)
 	print "Initialization complete."
 	
