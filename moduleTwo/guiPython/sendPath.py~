@@ -90,7 +90,7 @@ def sendPath(Xpath, Ypath):
 	print "SHOULD BE in state 4"
 	counter =0
 	length = len(pathX)
-	print "length", length
+	print "length", lenght
 	numBytes = 3* length
 
 	######################

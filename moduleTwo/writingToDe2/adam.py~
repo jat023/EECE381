@@ -270,8 +270,8 @@ def sendPath():
 	#	print "waiting for DE2 to flip ack bit"
 		pass
 	    print "DE2 got THE PATH, sending another"
-            GPIO.output(7,False)
-        
+#    	    GPIO.output(7, False)
+	    GPIO.output(7, True)
         
 #        #input dropping to 0 will signal DE2 ready for new data
 #        while (GPIO.input(11)):

@@ -33,7 +33,7 @@ yellowSpeed = 0.90
 whiteSpeed = 0.95
 
 G = nx.Graph()
-start = (50,50)
+start = (50,200)
 end = (200,200)
 path = []
 img = Image("/home/pi/Desktop/381_colours.bmp")
