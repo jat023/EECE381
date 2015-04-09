@@ -89,12 +89,15 @@ def sendPath(Xpath, Ypath):
 	GPIO.output(7, True)
 	print "SHOULD BE in state 4"
 	counter =0
+	length = len(pathX)
+	print "length", length
+	numBytes = 3* length
 
 	######################
 	#First byte informs DE2 if another transfer will be needed
 	#after DE2 finshes reading the current data being sent
 	adress = BitArray(bin='{0:012b}'.format(counter))
-	data = BitArray('0b00001100') 	#has more data to send after this
+	data = BitArray('0b00001100') 	#no more data
 	toDatBus( data )
 	toAdBus( adress )
 	GPIO.output(5,True) #write enable =1
@@ -105,10 +108,16 @@ def sendPath(Xpath, Ypath):
 	print "FIRST BIT=", data.bin , "to adress", adress.bin
 	counter += 1
 
-	
+	numLeft = BitArray(bin='{0:016b}'.format(numBytes))
+
+	mostSig = numLeft[0:8]
+
+	leastSig = numLeft[8:16]
+	print "LAST number of bits sending=", numLeft.bin,"split into", mostSig.bin , leastSig.bin
+
 	#second + third byte is # of bytes sending (normally 4093)    
 	adress = BitArray(bin='{0:012b}'.format(counter)) 
-	data = BitArray('0b00000000')
+	data = mostSig
 	toDatBus( data )
 	toAdBus( adress )
 	GPIO.output(5,True) #write enable =1
@@ -120,7 +129,7 @@ def sendPath(Xpath, Ypath):
 	print "2nd BIT=", data.bin , "to adress", adress.bin
 
 	adress = BitArray(bin='{0:012b}'.format(counter)) 
-	data = BitArray('0b00001001')
+	data = leastSig
 	toDatBus( data )
 	toAdBus( adress )
 	GPIO.output(5,True) #write enable =1
@@ -130,19 +139,22 @@ def sendPath(Xpath, Ypath):
 	GPIO.output(5,False) 
 	counter += 1
 	print "3rd BIT=", data.bin , "to adress", adress.bin
+	
+	
 
 	
 	dotCount = 0
 	#######
-	while (dotCount < 3): 
+	while (dotCount < length): 
 	    tempX = pathX.pop()
 	    numLeft = BitArray(bin='{0:016b}'.format(tempX))
 	    mostSig = numLeft[0:8]
 	    leastSig = numLeft[8:16]
 	    tempY = pathY.pop()
 	    numRight = BitArray(bin='{0:08b}'.format(tempY))
-	    print "X was", tempX, "and became", mostSig.bin, leastSig.bin
-	    print "Y was", tempY, "and became", numRight.bin
+	    print "sent coord:", tempX, tempY
+#	    print "X was", tempX, "and became", mostSig.bin, leastSig.bin
+#	    print "Y was", tempY, "and became", numRight.bin
 	    
 	    data = mostSig
 	    adress = BitArray(bin='{0:012b}'.format(counter))
@@ -153,7 +165,7 @@ def sendPath(Xpath, Ypath):
 	    pass
 	    GPIO.output(3,False)
 	    GPIO.output(5,False)
-	    print "sent XmostSig=", data.bin, "to", adress.bin
+#	    print "sent XmostSig=", data.bin, "to", adress.bin
 	    counter += 1
 
 
@@ -166,7 +178,7 @@ def sendPath(Xpath, Ypath):
 	    pass
 	    GPIO.output(3,False)
 	    GPIO.output(5,False)
-	    print "sent XleastSig=", data.bin, "to", adress.bin
+#	    print "sent XleastSig=", data.bin, "to", adress.bin
 	    counter += 1
 	   
 	    
@@ -179,7 +191,7 @@ def sendPath(Xpath, Ypath):
 	    pass
 	    GPIO.output(3,False)
 	    GPIO.output(5,False)
-	    print "sent Y", data.bin, "to", adress.bin
+#	    print "sent Y", data.bin, "to", adress.bin
 	    counter += 1
 
 	    dotCount +=1 

@@ -59,6 +59,7 @@ def create_nodes_of_Graph():
 	for x in range (0, 320):
 		for y in range(0, 240):
 			G.add_node((x,y), row=x, col=y)
+	
 
 #add edges and their respective speeds between nodes
 def create_edges_of_Graph():
@@ -148,9 +149,6 @@ def showEdges():
 def sendCoordinates():
 	global path
 	tkMessageBox.showinfo("Click", "That DE2 better be listening...")
-	for x in path:
-		print path.pop()
-
 	newPathx = []
 	newPathy = []
 
@@ -186,6 +184,7 @@ def sendCoordinates():
 	newPathy.append(int(y))
 	sendPath.sendPath(newPathx, newPathy)
 
+	
 def sendMap():
 	tkMessageBox.showinfo("Click", "Sending the map over to the DE2...")
 	write.writeToDe2()
