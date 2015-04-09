@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for module_2
-Thu Apr 02 10:23:54 2015
+Wed Apr 08 11:27:58 2015
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -87,8 +87,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------------------------+--------+--------------------------+
 ; SDC File Path                                                 ; Status ; Read at                  ;
 +---------------------------------------------------------------+--------+--------------------------+
-; nios_system/synthesis/submodules/altera_reset_controller.sdc  ; OK     ; Thu Apr 02 10:23:52 2015 ;
-; nios_system/synthesis/submodules/nios_system_nios2_qsys_0.sdc ; OK     ; Thu Apr 02 10:23:52 2015 ;
+; nios_system/synthesis/submodules/altera_reset_controller.sdc  ; OK     ; Wed Apr 08 11:27:56 2015 ;
+; nios_system/synthesis/submodules/nios_system_nios2_qsys_0.sdc ; OK     ; Wed Apr 08 11:27:57 2015 ;
 +---------------------------------------------------------------+--------+--------------------------+
 
 
@@ -290,8 +290,8 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 ; Unconstrained Clocks            ; 2     ; 2    ;
 ; Unconstrained Input Ports       ; 69    ; 69   ;
 ; Unconstrained Input Port Paths  ; 630   ; 630  ;
-; Unconstrained Output Ports      ; 141   ; 141  ;
-; Unconstrained Output Port Paths ; 413   ; 413  ;
+; Unconstrained Output Ports      ; 139   ; 139  ;
+; Unconstrained Output Port Paths ; 411   ; 411  ;
 +---------------------------------+-------+------+
 
 
@@ -301,24 +301,13 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Thu Apr 02 10:23:50 2015
+    Info: Processing started: Wed Apr 08 11:27:54 2015
 Info: Command: quartus_sta module_1 -c module_2
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Info (332164): Evaluating HDL-embedded SDC commands
-    Info (332165): Entity GHVD5181
-        Info (332166): set_disable_timing [get_cells -hierarchical QXXQ6833_0]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_0]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_1]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_2]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_3]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_4]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_5]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_6]
-        Info (332166): set_disable_timing [get_cells -hierarchical JEQQ5299_7]
-        Info (332166): set_disable_timing [get_cells -hierarchical BITP7563_0]
     Info (332165): Entity alt_jtag_atlantic
         Info (332166): set_false_path -from [get_registers {*|alt_jtag_atlantic:*|jupdate}] -to [get_registers {*|alt_jtag_atlantic:*|jupdate1*}] 
         Info (332166): set_false_path -from [get_registers {*|alt_jtag_atlantic:*|rdata[*]}] -to [get_registers {*|alt_jtag_atlantic*|td_shift[*]}]
@@ -351,8 +340,6 @@ Info (332164): Evaluating HDL-embedded SDC commands
     Info (332165): Entity dcfifo_l5n1
         Info (332166): set_false_path -from *rdptr_g* -to *ws_dgrp|dffpipe_4v8:dffpipe9|dffe10a* 
         Info (332166): set_false_path -from *delayed_wrptr_g* -to *rs_dgwp|dffpipe_3v8:dffpipe6|dffe7a* 
-    Info (332165): Entity pzdyqx_impl
-        Info (332166): set_false_path -from [get_keepers {altera_reserved_tdi}] -to [get_keepers {pzdyqx*}]
     Info (332165): Entity sld_jtag_hub
         Info (332166): create_clock -name altera_reserved_tck [get_ports {altera_reserved_tck}] -period 10MHz   
         Info (332166): set_clock_groups -asynchronous -group {altera_reserved_tck}
@@ -395,9 +382,9 @@ Info (332001): The selected device family is not supported by the report_metasta
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 13 warnings
-    Info: Peak virtual memory: 534 megabytes
-    Info: Processing ended: Thu Apr 02 10:23:54 2015
+    Info: Peak virtual memory: 499 megabytes
+    Info: Processing ended: Wed Apr 08 11:27:58 2015
     Info: Elapsed time: 00:00:04
-    Info: Total CPU time (on all processors): 00:00:04
+    Info: Total CPU time (on all processors): 00:00:03
 
 

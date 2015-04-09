@@ -327,9 +327,9 @@ applicable agreement for further details.
 	(port
 		(pt 0 1096)
 		(output)
-		(text "de2_state_export[2..0]" (rect 0 0 89 12)(font "Arial" (font_size 8)))
-		(text "de2_state_export[2..0]" (rect 4 1085 136 1096)(font "Arial" (font_size 8)))
-		(line (pt 0 1096)(pt 176 1096)(line_width 3))
+		(text "de2_ack_export" (rect 0 0 64 12)(font "Arial" (font_size 8)))
+		(text "de2_ack_export" (rect 4 1085 88 1096)(font "Arial" (font_size 8)))
+		(line (pt 0 1096)(pt 176 1096)(line_width 1))
 	)
 	(port
 		(pt 0 312)
@@ -436,7 +436,7 @@ applicable agreement for further details.
 		(text "writedata" (rect 181 1011 416 2032)(font "Arial" (color 0 0 0)))
 		(text "clk_pi" (rect 143 1027 322 2067)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "clk" (rect 181 1051 380 2112)(font "Arial" (color 0 0 0)))
-		(text "de2_state" (rect 119 1067 292 2147)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "de2_ack" (rect 128 1067 298 2147)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 181 1091 398 2192)(font "Arial" (color 0 0 0)))
 		(text "pi_request" (rect 115 1107 290 2227)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 181 1131 398 2272)(font "Arial" (color 0 0 0)))

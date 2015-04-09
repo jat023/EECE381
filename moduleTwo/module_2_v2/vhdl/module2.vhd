@@ -115,7 +115,7 @@ ARCHITECTURE Structure OF module2 IS
       dual_port_ram_s2_readdata   : out   std_logic_vector(7 downto 0);                     	-- readdata
       dual_port_ram_s2_writedata  : in    std_logic_vector(7 downto 0)  := "00000000"; 		-- writedata
       clk_pi_clk                  : in    std_logic                     := 'X';              -- clk
-		de2_state_export            : out   std_logic_vector(2 downto 0);                     	-- export
+		de2_ack_export	             : out   std_logic;          											-- export
       pi_request_export           : in    std_logic                     := 'X'              	-- export
 	);
 	END COMPONENT;
@@ -183,7 +183,7 @@ ARCHITECTURE Structure OF module2 IS
       dual_port_ram_s2_writedata  	=> GPIO_1(15 downto 8),  		-- .writedata
       dual_port_ram_s2_write      	=> GPIO_1(7),      				-- .write
       clk_pi_clk                  	=> GPIO_1(6),	               -- clk_pi.clk
-      de2_state_export            	=> GPIO_1(5 downto 3),        -- de2_state.export
-      pi_request_export           	=> GPIO_1(2)            		-- pi_request.export
+      de2_ack_export	            	=> GPIO_1(5),        			-- de2_state.export
+      pi_request_export           	=> GPIO_1(4)            		-- pi_request.export
 	);
 END Structure;
