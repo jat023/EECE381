@@ -33,8 +33,8 @@ yellowSpeed = 0.90
 whiteSpeed = 0.95
 
 G = nx.Graph()
-start = (0,0)
-end = (63,200)
+start = (50,50)
+end = (200,200)
 path = []
 img = Image("/home/pi/Desktop/381_colours.bmp")
 weight = 0
@@ -60,7 +60,6 @@ def create_nodes_of_Graph():
 		for y in range(0, 240):
 			G.add_node((x,y), row=x, col=y)
 	
-
 
 #add edges and their respective speeds between nodes
 def create_edges_of_Graph():
@@ -150,36 +149,45 @@ def showEdges():
 def sendCoordinates():
 	global path
 	tkMessageBox.showinfo("Click", "That DE2 better be listening...")
-	print "len path is: ", len(path)
-	path.reverse()
-	for x in path:
-		print x
-	print "starting list manip"
-	print ""
 	newPathx = []
 	newPathy = []
 
+	coordinate1 = list(path.pop())
+	x1 = coordinate1[0]
+	y1 = coordinate1[1]
+	coordinate2 = list(path.pop())
+	x2 = coordinate2[0]
+	y2 = coordinate2[1]
+	test1 = [x1-x2, y1-y2]
+
+	newPathx.append(x1)
+	newPathy.append(y1)
 
 	while path:
 		coordinate = list(path.pop())
 		x = coordinate[0]
 		y = coordinate[1]
 	
-		newPathx.append(int(x))
-		newPathy.append(int(y))
-		
-	print "coord Sent to DE2:"
-#	while newPathx:
-#		print newPathx.pop(),  newPathy.pop()
+		test2 = [x2-x, y2-y]
 
+		if (test1 == test2):
+			test1 = test2
+			x2 = x
+			y2 = y
+		else:
+			newPathx.append(int(x))
+			newPathy.append(int(y))
+			x2 = x
+			y2 = y
+
+	newPathx.append(int(x))
+	newPathy.append(int(y))
 	sendPath.sendPath(newPathx, newPathy)
-	return
-	
+
 	
 def sendMap():
 	tkMessageBox.showinfo("Click", "Sending the map over to the DE2...")
 	write.writeToDe2()
-	
 
 #sets the start and destination coordinates in the format (x, y)
 def setCoordinates():
