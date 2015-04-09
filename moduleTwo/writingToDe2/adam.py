@@ -89,7 +89,7 @@ def toAdBus( ad ):
 def sendPath():
     GPIO.output(3, False) #clock and write enable to 0
     GPIO.output(5, False)
-    GPIO.output(7, False)
+#    GPIO.output(7, False)
 
     pathX = [10,50,300]
     pathY = [10,50,200]
@@ -106,7 +106,8 @@ def sendPath():
     while( done == 0): 
 	dotCount = 0
         counter = 0
-  #      GPIO.output(7, True)
+#       GPIO.output(7, True)
+#       GPIO.output(7, False)
         print "pi request =1"
         GPIO.output(3,True) #fake clock high
         pass
@@ -252,22 +253,25 @@ def sendPath():
 
 
         if(done == 1):
-	    GPIO.output(7, True)
+    	    GPIO.output(7, False)
+#	    GPIO.output(7, True)
 	    print "sending DE2 path"
 	    while (GPIO.input(11)):
 	#	print "waiting for DE2 to flip ack bit"
 		pass
 	    print "DE2 got THE PATH, done path"
-	#    GPIO.output(7,True)
+#    	    GPIO.output(7, False)
+#	    GPIO.output(7,True)
             return
         else:
-            GPIO.output(7, True)
+    	    GPIO.output(7, False)
+#	    GPIO.output(7, True)
  	    while (GPIO.input(11)):
 	#	print "waiting for DE2 to flip ack bit"
 		pass
 	    print "DE2 got THE PATH, sending another"
-            GPIO.output(7,False)
-        
+#    	    GPIO.output(7, False)
+	    GPIO.output(7, True)
         
 #        #input dropping to 0 will signal DE2 ready for new data
 #        while (GPIO.input(11)):

@@ -244,9 +244,10 @@ def writeToDe2():
 			while (GPIO.input(11)):
 	#			print "waiting for DE2 to flip ack bit"
 				pass
-			GPIO.output(7, True)
-			print "SHOULD BE in state 4"
-			break
+		#	GPIO.output(7, True)
+		#	print "SHOULD BE in state 4"
+
+			return
 		
 		
 	    #input dropping to 0 will signal DE2 ready for new data

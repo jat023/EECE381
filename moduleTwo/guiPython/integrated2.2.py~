@@ -17,6 +17,7 @@ import sendPath
 import networkx as nx
 import os
 import math
+import ast
 
 top = Tk()
 top.title("Orienteering APP")
@@ -24,6 +25,7 @@ frame = Frame(top, bd=5, height=500, width=500)
 frame.pack()
 
 #speeds through terrain
+impassable =0.01
 dgSpeed = 0.15
 mgSpeed = 0.40
 lgSpeed = 0.70
@@ -31,8 +33,8 @@ yellowSpeed = 0.90
 whiteSpeed = 0.95
 
 G = nx.Graph()
-start = (1,1)
-end = (100,100)
+start = (50,200)
+end = (200,200)
 path = []
 img = Image("/home/pi/Desktop/381_colours.bmp")
 weight = 0
@@ -56,7 +58,7 @@ def create_nodes_of_Graph():
 
 	for x in range (0, 320):
 		for y in range(0, 240):
-			G.add_node((x,y))
+			G.add_node((x,y), row=x, col=y)
 
 #add edges and their respective speeds between nodes
 def create_edges_of_Graph():
@@ -66,24 +68,46 @@ def create_edges_of_Graph():
 
 	for y in range (1, 240):
 		for x in range(1, 320):
-			#get RGB color value of the current node
 			red, green, blue = img[x,y]
-		
-			# sets weight to whiteSpeed for edge
-			if (red > 225 and green > 225 and blue > 225):
-				weight = whiteSpeed
-			# sets weight to dgSpeed (dark green) for edge
-			elif (red < 100 and green < 125 and blue < 100):
-				weight = dgSpeed
-			# sets weight to mgSpeed (medium green) for edge
-			elif (red < 100 and (green > 124 and green < 200) and blue < 100):
-				weight = mgSpeed
-			# sets weight to lgSpeed (light green) for edge
-			elif (red < 100 and green > 199 and blue < 100):
-				weight = lgSpeed
-			# sets weight to yellowSpeed for edge
-			elif (red > 215 and green > 215 and blue < 10):
-				weight = yellowSpeed
+			# sets weight
+			if ( green > 225 ):
+				#sets datat if white	
+				if (red > 225  and blue > 225):
+					weight = whiteSpeed
+				# sets data if (medium green)
+				elif (red < 170 and  blue < 145):
+					weight = mgSpeed
+				# sets data to (light green)
+				else:
+					weight =lgSpeed
+			#set if purple, black or brown
+			elif ( green < 140 ):
+				# sets data if purple
+				if (red > 225 and blue > 225):
+					data = mgSpeed
+#what do we want purple?
+				# sets data if black
+				elif (red < 50 and blue < 50):
+					weight = impassable
+				#must be brown
+				else :
+					weight = whiteSpeed		
+			#sets if  blue, olive green or yellow
+			else :
+				# sets data if blue
+				if ( blue > 200):
+					weight = impassable
+				# sets data if yellow
+				elif (red > 205 and blue > 40 ):
+					weight = yellowSpeed
+				# sets data if olive green
+				elif (red > 80 and blue < 41):
+					weight = impassable
+				# sets data if (dark green) 
+				elif( red < 81 and blue <100) :
+					weight = dgSpeed
+				else:
+					weight = whiteSpeed
 
 			if (x == 320):
 				G.add_edge((x,y),(x-1,y), weight = weight)
@@ -124,7 +148,43 @@ def showEdges():
 def sendCoordinates():
 	global path
 	tkMessageBox.showinfo("Click", "That DE2 better be listening...")
-	sendPath.sendPath(path)
+	for x in path:
+		print path.pop()
+
+	newPathx = []
+	newPathy = []
+
+	coordinate1 = list(path.pop())
+	x1 = coordinate1[0]
+	y1 = coordinate1[1]
+	coordinate2 = list(path.pop())
+	x2 = coordinate2[0]
+	y2 = coordinate2[1]
+	test1 = [x1-x2, y1-y2]
+
+	newPathx.append(x1)
+	newPathy.append(y1)
+
+	while path:
+		coordinate = list(path.pop())
+		x = coordinate[0]
+		y = coordinate[1]
+	
+		test2 = [x2-x, y2-y]
+
+		if (test1 == test2):
+			test1 = test2
+			x2 = x
+			y2 = y
+		else:
+			newPathx.append(int(x))
+			newPathy.append(int(y))
+			x2 = x
+			y2 = y
+
+	newPathx.append(int(x))
+	newPathy.append(int(y))
+	sendPath.sendPath(newPathx, newPathy)
 
 def sendMap():
 	tkMessageBox.showinfo("Click", "Sending the map over to the DE2...")
@@ -132,15 +192,14 @@ def sendMap():
 
 #sets the start and destination coordinates in the format (x, y)
 def setCoordinates():
-# fix this later... but soon later (END)
 	global start
 	global end
-	start = entryStart.get()
-	end = entryEnd.get()
-	print start
-	print end
-	entryStart.delete(0, END)
-	entryEnd.delete(0, END)
+	startx = entryStartx.get()
+	starty = entryStarty.get()
+	endx = entryEndx.get()
+	endy = entryEndy.get()
+	#start = G.nodes(row=startx, col=starty)
+	#start = G.nodes(row=endx, row=endy)
 	tkMessageBox.showinfo("Click", "The coordinates have been set")
 
 #resets the graph, deleting all nodes and edges
@@ -180,29 +239,35 @@ if __name__ == "__main__":
 	buttonCreateGraph.place(x=20, y=100, height=30, width=150)
 	buttonNodes.place(x=20, y=130, height=30, width=150)
 	buttonEdges.place(x=20, y=160, height=30, width=150)
-	buttonSend.place(x=220, y=270, height=30, width=200)
+	buttonSend.place(x=220, y=300, height=30, width=200)
 	buttonQuit.place(x=325, y=10, height=30, width=150)
 	buttonSet.place(x=10, y=270, height=30, width=200)
 	buttonDelete.place(x=200, y=100, height=30, width=150)
-	buttonSendMap.place(x=10, y=300, height=30, width=150)
+	buttonSendMap.place(x=10, y=300, height=30, width=200)
 
 		#labels and entry fields for setting coordinates
 	labelHeader = Label(top, text="Welcome to Orienteering!")
 	labelStart = Label(top, text="Starting point")
 	labelEnd = Label(top, text="Destination point")
-	entryStart = Entry(top, bd=5)
-	entryEnd = Entry(top, bd=5)
+	entryStartx = Entry(top, bd=3)
+	entryStarty = Entry(top, bd=3)
+	entryEndx = Entry(top, bd=3)
+	entryEndy = Entry(top, bd=3)
 		
 	labelHeader.pack()
 	labelStart.pack()
 	labelEnd.pack()
-	entryStart.pack()
-	entryEnd.pack()
+	entryStartx.pack()
+	entryStarty.pack()
+	entryEndx.pack()
+	entryEndy.pack()
 
 	labelStart.place(x=20, y=200)
 	labelEnd.place(x=20, y=230)
-	entryStart.place(x=150, y=200)
-	entryEnd.place(x=150, y=230)
+	entryStartx.place(x=150, y=200, width=100)
+	entryStarty.place(x=275, y=200, width=100)
+	entryEndx.place(x=150, y=230, width=100)
+	entryEndy.place(x=275, y=230, width=100)
 	labelHeader.place(x=10, y=10)
 
 	#open main GUI window; remain open until user exit

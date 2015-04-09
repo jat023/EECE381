@@ -79,12 +79,11 @@ def writeToDe2():
 	numPixel = xMax * yMax
 	pixCount = 0
 	done = 0
-	GPIO.output(7, True)
 	print "Initialization complete."
 	
 	while( done == 0): 
 		counter = 0
-
+		GPIO.output(7, True)
 		GPIO.output(3,True) #fake clock high
 		pass
 		GPIO.output(3,False)
@@ -178,6 +177,7 @@ def writeToDe2():
 			GPIO.output(5,False) 
 			counter += 1
 	    
+		GPIO.output(7, False)
 		#write 4093 bytes of data to DE2 for te map
 		while counter < 4096: 
 			red, green, blue = img[x, y]
@@ -214,7 +214,7 @@ def writeToDe2():
 					data = BitArray('0b00000101')
 				# sets data if olive green
 				elif (red > 80 and blue < 41):
-					data = BitArray('0b00000111')
+					data = BitArray('0b00001001')
 				# sets data if (dark green) 
 				elif( red < 81 and blue <100) :
 					data = BitArray('0b00000010')
@@ -241,22 +241,24 @@ def writeToDe2():
 			#print "adress was", adress.bin , "wrote", data.bin
 
 		if (done == 1):
-			GPIO.output(7, False)
 			print "done drawing picture"
-			break
-		else:
-			GPIO.output(7, False)
-			time.sleep(.001)
+			while (GPIO.input(11)):
+				print "waiting for DE2 to flip ack bit"
+				pass
 			GPIO.output(7, True)
-			print "another loop: drawn %d pixels" % pixCount
+			print "SHOULD BE in state 4"
+			break
+		
 		
 	    #input dropping to 0 will signal DE2 ready for new data
 		while (GPIO.input(11)):
+			print "waiting for DE2 to flip ack bit"
 			pass
 	
 	print "done writing- hope it worked"
+	print ""
+	
 
 def cleanUp():
 	GPIO.cleanup() # this ensures a clean exit
-
 
