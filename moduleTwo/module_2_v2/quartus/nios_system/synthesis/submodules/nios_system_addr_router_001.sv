@@ -245,13 +245,13 @@ module nios_system_addr_router_001
     // ( 0x38a0 .. 0x38b0 )
     if ( {address[RG:PAD7],{PAD7{1'b0}}} == 25'h38a0   ) begin
             src_channel = 16'b1000000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
     // ( 0x38b0 .. 0x38c0 )
     if ( {address[RG:PAD8],{PAD8{1'b0}}} == 25'h38b0   ) begin
             src_channel = 16'b0100000000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
     end
 
     // ( 0x38c0 .. 0x38d0 )

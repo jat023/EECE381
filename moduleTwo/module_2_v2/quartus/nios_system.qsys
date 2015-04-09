@@ -52,22 +52,6 @@
          type = "String";
       }
    }
-   element de2_state.avalon_parallel_port_slave
-   {
-      datum baseAddress
-      {
-         value = "14512";
-         type = "String";
-      }
-   }
-   element pi_request.avalon_parallel_port_slave
-   {
-      datum baseAddress
-      {
-         value = "14496";
-         type = "String";
-      }
-   }
    element sd_card.avalon_sdcard_slave
    {
       datum _lockedAddress
@@ -129,7 +113,7 @@
          type = "int";
       }
    }
-   element de2_state
+   element de2_ack
    {
       datum _sortIndex
       {
@@ -225,14 +209,6 @@
          type = "int";
       }
    }
-   element sdram.s1
-   {
-      datum baseAddress
-      {
-         value = "16777216";
-         type = "String";
-      }
-   }
    element onchip_memory2_0.s1
    {
       datum _lockedAddress
@@ -241,27 +217,11 @@
          type = "boolean";
       }
    }
-   element timer_timestamp.s1
-   {
-      datum baseAddress
-      {
-         value = "14432";
-         type = "String";
-      }
-   }
    element LEDs.s1
    {
       datum baseAddress
       {
          value = "14544";
-         type = "String";
-      }
-   }
-   element keys.s1
-   {
-      datum baseAddress
-      {
-         value = "14560";
          type = "String";
       }
    }
@@ -278,6 +238,46 @@
       datum baseAddress
       {
          value = "14464";
+         type = "String";
+      }
+   }
+   element de2_ack.s1
+   {
+      datum baseAddress
+      {
+         value = "14496";
+         type = "String";
+      }
+   }
+   element pi_request.s1
+   {
+      datum baseAddress
+      {
+         value = "14512";
+         type = "String";
+      }
+   }
+   element sdram.s1
+   {
+      datum baseAddress
+      {
+         value = "16777216";
+         type = "String";
+      }
+   }
+   element timer_timestamp.s1
+   {
+      datum baseAddress
+      {
+         value = "14432";
+         type = "String";
+      }
+   }
+   element keys.s1
+   {
+      datum baseAddress
+      {
+         value = "14560";
          type = "String";
       }
    }
@@ -368,7 +368,7 @@
  <parameter name="projectName" value="module_1.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1427992287386" />
+ <parameter name="timeStamp" value="1428517511419" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -418,13 +418,13 @@
    dir="end" />
  <interface name="clk_pi" internal="clk_pi.clk_in" type="clock" dir="end" />
  <interface
-   name="de2_state"
-   internal="de2_state.external_interface"
+   name="de2_ack"
+   internal="de2_ack.external_connection"
    type="conduit"
    dir="end" />
  <interface
    name="pi_request"
-   internal="pi_request.external_interface"
+   internal="pi_request.external_connection"
    type="conduit"
    dir="end" />
  <module kind="clock_source" version="13.0" enabled="1" name="clk_0">
@@ -507,7 +507,7 @@
   <parameter name="mmu_tlbPtrSz" value="7" />
   <parameter name="mmu_tlbNumWays" value="16" />
   <parameter name="mmu_processIDNumBits" value="8" />
-  <parameter name="impl" value="Fast" />
+  <parameter name="impl" value="Tiny" />
   <parameter name="icache_size" value="8192" />
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="icache_ramBlockType" value="Automatic" />
@@ -539,7 +539,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2800' end='0x3000' /><slave name='sd_card.avalon_sdcard_slave' start='0x3400' end='0x3800' /><slave name='timer_timestamp.s1' start='0x3860' end='0x3880' /><slave name='timer_system.s1' start='0x3880' end='0x38A0' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='dual_port_ram.s1' start='0x1000' end='0x2000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2800' end='0x3000' /><slave name='sd_card.avalon_sdcard_slave' start='0x3400' end='0x3800' /><slave name='line_drawer_0.avalon_slave_0' start='0x3840' end='0x3860' /><slave name='timer_timestamp.s1' start='0x3860' end='0x3880' /><slave name='timer_system.s1' start='0x3880' end='0x38A0' /><slave name='pi_request.avalon_parallel_port_slave' start='0x38A0' end='0x38B0' /><slave name='de2_state.avalon_parallel_port_slave' start='0x38B0' end='0x38C0' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x38C0' end='0x38D0' /><slave name='LEDs.s1' start='0x38D0' end='0x38E0' /><slave name='keys.s1' start='0x38E0' end='0x38F0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x38F0' end='0x38F8' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x38F8' end='0x38FA' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x1000' /><slave name='dual_port_ram.s1' start='0x1000' end='0x2000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x2800' end='0x3000' /><slave name='sd_card.avalon_sdcard_slave' start='0x3400' end='0x3800' /><slave name='line_drawer_0.avalon_slave_0' start='0x3840' end='0x3860' /><slave name='timer_timestamp.s1' start='0x3860' end='0x3880' /><slave name='timer_system.s1' start='0x3880' end='0x38A0' /><slave name='de2_ack.s1' start='0x38A0' end='0x38B0' /><slave name='pi_request.s1' start='0x38B0' end='0x38C0' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x38C0' end='0x38D0' /><slave name='LEDs.s1' start='0x38D0' end='0x38E0' /><slave name='keys.s1' start='0x38E0' end='0x38F0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x38F0' end='0x38F8' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x38F8' end='0x38FA' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone II" />
   <parameter name="internalIrqMaskSystemInfo" value="7" />
@@ -827,44 +827,40 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module
-   kind="altera_up_avalon_parallel_port"
-   version="13.0"
+   kind="altera_avalon_pio"
+   version="13.0.1.99.2"
    enabled="1"
-   name="de2_state">
-  <parameter name="board" value="DE2" />
-  <parameter name="custom_port" value="true" />
-  <parameter name="preset" value="Expansion Header" />
-  <parameter name="leds" value="Green" />
-  <parameter name="sevensegs" value="3 to 0" />
-  <parameter name="gpio" value="GPIO 1 (JP2)" />
-  <parameter name="custom_DW" value="3" />
-  <parameter name="custom_direction" value="Output only" />
-  <parameter name="capture" value="false" />
-  <parameter name="edge" value="Rising" />
-  <parameter name="irq" value="false" />
-  <parameter name="irq_type" value="Edge" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+   name="de2_ack">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
+  <parameter name="clockRate" value="50000000" />
  </module>
  <module
-   kind="altera_up_avalon_parallel_port"
-   version="13.0"
+   kind="altera_avalon_pio"
+   version="13.0.1.99.2"
    enabled="1"
    name="pi_request">
-  <parameter name="board" value="DE2" />
-  <parameter name="custom_port" value="true" />
-  <parameter name="preset" value="Expansion Header" />
-  <parameter name="leds" value="Green" />
-  <parameter name="sevensegs" value="3 to 0" />
-  <parameter name="gpio" value="GPIO 0 (JP1)" />
-  <parameter name="custom_DW" value="1" />
-  <parameter name="custom_direction" value="Input only" />
-  <parameter name="capture" value="false" />
-  <parameter name="edge" value="Rising" />
-  <parameter name="irq" value="false" />
-  <parameter name="irq_type" value="Edge" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="1" />
+  <parameter name="clockRate" value="50000000" />
  </module>
  <connection
    kind="avalon"
@@ -1412,53 +1408,49 @@
    start="pixel_buffer_dma.avalon_pixel_source"
    end="rgb_sampler.avalon_rgb_sink" />
  <connection
-   kind="clock"
-   version="13.0"
-   start="clocks.sys_clk"
-   end="de2_state.clock_reset" />
- <connection
-   kind="reset"
-   version="13.0"
-   start="nios2_qsys_0.jtag_debug_module_reset"
-   end="de2_state.clock_reset_reset" />
- <connection
-   kind="reset"
-   version="13.0"
-   start="clk_0.clk_reset"
-   end="de2_state.clock_reset_reset" />
- <connection
    kind="avalon"
    version="13.0"
    start="nios2_qsys_0.data_master"
-   end="de2_state.avalon_parallel_port_slave">
+   end="pi_request.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x38b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
-   kind="clock"
+   kind="reset"
    version="13.0"
-   start="clocks.sys_clk"
-   end="pi_request.clock_reset" />
+   start="clk_0.clk_reset"
+   end="pi_request.reset" />
  <connection
    kind="reset"
    version="13.0"
    start="nios2_qsys_0.jtag_debug_module_reset"
-   end="pi_request.clock_reset_reset" />
+   end="pi_request.reset" />
+ <connection
+   kind="clock"
+   version="13.0"
+   start="clocks.sys_clk"
+   end="pi_request.clk" />
+ <connection kind="clock" version="13.0" start="clocks.sys_clk" end="de2_ack.clk" />
  <connection
    kind="reset"
    version="13.0"
    start="clk_0.clk_reset"
-   end="pi_request.clock_reset_reset" />
+   end="de2_ack.reset" />
  <connection
    kind="avalon"
    version="13.0"
    start="nios2_qsys_0.data_master"
-   end="pi_request.avalon_parallel_port_slave">
+   end="de2_ack.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x38a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="reset"
+   version="13.0"
+   start="nios2_qsys_0.jtag_debug_module_reset"
+   end="de2_ack.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

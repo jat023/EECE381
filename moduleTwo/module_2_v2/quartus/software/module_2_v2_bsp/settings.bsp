@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Apr 2, 2015 10:44:40 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1427996680236</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 8, 2015 3:03:11 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1428530591914</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\Kyle\Dropbox\School\CPEN_Y3_T2\EECE381\Projects\module_2_v2\quartus\software\module_2_v2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\Kyle\Dropbox\School\CPEN_Y3_T2\EECE381\Projects\module_2_v2\quartus\nios_system.sopcinfo</SopcDesignFile>
@@ -899,13 +899,13 @@
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>pi_request</slaveDescriptor>
+                <slaveDescriptor>de2_ack</slaveDescriptor>
                 <addressRange>0x000038A0 - 0x000038AF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>de2_state</slaveDescriptor>
+                <slaveDescriptor>pi_request</slaveDescriptor>
                 <addressRange>0x000038B0 - 0x000038BF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
